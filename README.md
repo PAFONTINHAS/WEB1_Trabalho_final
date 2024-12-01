@@ -1,2 +1,2 @@
 # WEB1_Trabalho_final
-Repositório dedicado ao trablaho final de web 1
+Repositório dedicado ao trabalho final de web 1
