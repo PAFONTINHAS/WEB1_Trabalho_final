@@ -2,15 +2,13 @@ DROP DATABASE IF EXISTS task_management;
 CREATE DATABASE task_management;
 USE task_management;
 
-USE task_management;
-
-CREATE TABLE Permissao(
+CREATE TABLE IF NOT EXISTS Permissao(
 	codPermissao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     descricao VARCHAR(200) NOT NULL,
     nivelAcesso INT NULL
 );
 
-CREATE TABLE Funcionario(
+CREATE TABLE IF NOT EXISTS Funcionario(
 	codFunc INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nomeFunc VARCHAR(200),
     emailFunc VARCHAR(200),
@@ -18,12 +16,12 @@ CREATE TABLE Funcionario(
     codPermissao INT NOT NULL,
     FOREIGN KEY (codPermissao) REFERENCES Permissao(codPermissao)
 );
-CREATE TABLE Equipe(
+CREATE TABLE IF NOT EXISTS Equipe(
 	codEquipe INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nomeEquipe VARCHAR(200)
 );
 
-CREATE TABLE Membros(
+CREATE TABLE IF NOT EXISTS Membros(
 	codMembro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     codEquipe INT NOT NULL,
     codFunc INT NOT NULL,
@@ -32,7 +30,7 @@ CREATE TABLE Membros(
 
 );
 
-CREATE TABLE Tarefa(
+CREATE TABLE IF NOT EXISTS Tarefa(
 	codTarefa INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     titulo VARCHAR(200) NOT NULL,
     descricao VARCHAR(200) NOT NULL,
