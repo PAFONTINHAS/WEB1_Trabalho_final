@@ -2,6 +2,11 @@ const db = require("../models/ConnectDatabase");
 
 class TaskRepository {
   async findAll() {
+    const rows = await db.query(`
+      SELECT tasks.* FROM task
+      LEFT JOIN categories ON categories.id = contacts.category_id
+      `);
+  return rows;
 
   }
 
