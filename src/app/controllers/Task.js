@@ -30,7 +30,7 @@ class Task {
   if(equipe){
     const tasksByEquipe = await TaskRepository.findByEquipe(equipe);
     if(!tasksByEquipe){
-      return reponse.status(400).json({erro:"Essa equipe não existe "})
+      return response.status(400).json({erro:"Essa equipe não existe "})
     }
   }
     const tasks = await TaskRepository.create({
