@@ -55,9 +55,33 @@ class Employee {
   async update(request, response) {
     //Atualizar um registro existente
     const {id} = request.params;
+    const updatedData = request.body;
 
-    employee = await EmployeeRepository.update();
-    response.json(employee);
+    const currentEmployee = await EmployeeRepository.findById(id);
+
+    if(!currentEmployee){
+      return response.status(404).json({ error: "Employee not found!" });
+    }
+
+    // Verificar as diferenças entre os dados atuais e os novos
+    const updatedFields = {};
+    for (const key in updatedData) {
+      if (updatedData[key] !== currentEmployee[key]) {
+        updatedFields[key] = updatedData[key];
+      }
+    }
+
+    // Caso não haja campos diferentes, não há necessidade de atualizar
+    if (Object.keys(updatedFields).length === 0) {
+      return response.status(400).json({ message: "No changes detected!" });
+    }
+
+
+    // Atualizar os campos diferentes no banco
+    await EmployeeRepository.update(id, updatedFields);
+
+
+     response.json(employee);
 
   }
 

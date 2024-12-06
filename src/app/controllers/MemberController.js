@@ -21,6 +21,33 @@ class Member {
     return response.json(team);
   }
 
+  async showByMember(request, response){
+    // Obter um registro
+    const { id } = request.params;
+
+    member = await MemberRepository.findById(id);
+    //Verificando se o Id enviado na requisição pertence a algum contato
+    if (!member) {
+      return response.status(404).json({ error: "Member not found!" });
+    }
+    response.json(member);
+
+  }
+
+  async showAllMembersTeam(request, response){
+    // Obter um registro
+    const { id } = request.params;
+
+    member = await MemberRepository.findByMember(id);
+    //Verificando se o Id enviado na requisição pertence a algum contato
+    if (!member) {
+      return response.status(404).json({ error: "Member not found!" });
+    }
+    response.json(member);
+
+  }
+
+
   async store(request, response) {
     const { codEquipe, codFunc, codTarefa} = request.body;
 
@@ -54,9 +81,34 @@ class Member {
   async update() {
     //Atualizar um registro existente
     const {id} = request.params;
+    const updatedData = request.body;
 
-    member = await MemberRepository.update();
-    response.json(member);
+    const currentMember = await MemberRepository.findById(id);
+
+    if(!currentMember){
+      return response.status(404).json({ error: "Member not found!" });
+    }
+
+    // Verificar as diferenças entre os dados atuais e os novos
+    const updatedFields = {};
+    for (const key in updatedData) {
+      if (updatedData[key] !== currentMember[key]) {
+        updatedFields[key] = updatedData[key];
+      }
+    }
+
+    // Caso não haja campos diferentes, não há necessidade de atualizar
+    if (Object.keys(updatedFields).length === 0) {
+      return response.status(400).json({ message: "No changes detected!" });
+    }
+
+
+    // Atualizar os campos diferentes no banco
+    await MemberRepository.update(id, updatedFields);
+
+
+     response.json(member);
+
   }
 
   async delete(request, response) {

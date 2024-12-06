@@ -53,7 +53,23 @@ class EmployeeRepository {
     };
   }
 
-  update() {
+  async update(id, updatedFields) {
+ 
+      const fields = Object.keys(updatedFields)
+      .map(key => `${key} = ?`)
+      .join(", "); // Cria algo como: "nomeFunc = ?, emailFunc = ?"
+
+    const values = Object.values(updatedFields); // Valores a serem atualizados
+    values.push(id); // Adiciona o ID ao final para o WHERE
+
+    const query = `
+      UPDATE funcionario
+      SET ${fields}
+      WHERE codFunc = ?;
+    `;
+
+    await db.query(query, values);
+
 
   }
 

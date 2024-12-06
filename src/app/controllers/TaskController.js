@@ -9,14 +9,24 @@ class Task {
   }
 //read
   async show(request, response) {
-    const {id} = request.params; 
-    const tasks = await TaskRepository.findById(id); 
+    const {id} = request.params;
+    const tasks = await TaskRepository.findById(id);
   //Verificando se o Id enviado na requisição pertence a algum contato
 
     if (!tasks){
-      return response.status(404).json({error:"Task não encontrada"}); 
+      return response.status(404).json({error:"Task não encontrada"});
     }
-    response.json(tasks); 
+    response.json(tasks);
+  }
+
+  async showStatus(request, response){
+
+    const {status} = request.params;
+
+    const taskStatus = await TaskRepository.findByStatus(status);
+
+    response.json(taskStatus);
+
   }
 //create
   async store(request, response) {
@@ -34,23 +44,23 @@ class Task {
     }
   }
     const tasks = await TaskRepository.create({
-      titulo, 
-      equipe: equipe || null, 
-      membros, 
+      titulo,
+      equipe: equipe || null,
+      membros,
       data_inicio,
       data_limite,
-      status, 
+      status,
       criador
     })
     response.status(201).json(tasks);
-  } 
+  }
 
   async update(request,response) {
     //Atualizar um registro existente
-    const {id} = request.params; 
-    const tasks = await TaskRepository.findById(id); 
+    const {id} = request.params;
+    const tasks = await TaskRepository.findById(id);
     if (!tasks){
-      return response.status(404).json({error:"Task não encontrada"}); 
+      return response.status(404).json({error:"Task não encontrada"});
     }
     await TaskRepository.update(id);
     response.sendStatus(204);

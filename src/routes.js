@@ -9,6 +9,7 @@ const routes = Router();
 // TASK ROUTES
 routes.get("/task", task.index);
 routes.get("/task/:id", task.show);
+routes.get("/task/status/:status", task.showStatus)
 routes.post("/task", task.store);
 routes.put("/task/:id", task.update);
 routes.delete("/task/:id", task.delete);
@@ -22,7 +23,9 @@ routes.delete("/team/:id", team.delete);
 
 // MEMBER ROUTES
 routes.get("/member", member.index);
-routes.get("/member/:id", member.showByTeam);
+routes.get("/member/codEquipe/:id", member.showByTeam);
+routes.get("/member/codFunc/:id", member.showAllMembersTeam);
+routes.get("/member/:id", member.showByMember);
 routes.post("/member", member.store);
 routes.put("/member/:id", member.update);
 routes.delete("/member/:id", member.delete);
