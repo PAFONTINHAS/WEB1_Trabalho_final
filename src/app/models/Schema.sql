@@ -1,5 +1,3 @@
-DROP DATABASE IF EXISTS task_management;
-CREATE DATABASE task_management;
 USE task_management;
 
 CREATE TABLE IF NOT EXISTS Permissao(
