@@ -17,13 +17,12 @@ class Task {
       return response.status(404).json({error:"Task não encontrada"});
     }
     response.json(tasks);
+    
   }
 
-  async showStatus(request, response){
+  async showTaskCountByStatus(request, response){
 
-    const {status} = request.params;
-
-    const taskStatus = await TaskRepository.findByStatus(status);
+    const taskStatus = await TaskRepository.findTaskCountByStatus();
 
     response.json(taskStatus);
 

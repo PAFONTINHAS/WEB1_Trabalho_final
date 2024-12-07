@@ -3,12 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/lucas_seu_lindo/css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
+<header>
+    <div class="nav_bar">
+        <button><a href="">Tarefas</a></button>
+        <button><a href="">Funcionários</a></button>
+    </div>
+</header>
 <body>
-    <h1>Introdução à Página Dashboard do Gerenciador de Tarefas</h1>
+
+    <div class="first_container">
+        <div class="team_container">
+            <div class="team_title">
+                <h2>Equipes Cadastradas</h2>
+
+            </div>
+            <div class="team_cards">
+                <div class="card">
+                    <h5>Financeiro</h5>
 
 
+                </div>
+                <div class="card">
+                    <h5>Desenvolvimento de Software</h5>
+
+
+                </div>
+                <div class="card" >
+                    <h5>Recursos Humanos</h5>
+
+
+                </div>
+                <div class="card">
+                    <h5>Marketing Digital</h5>
+
+
+                </div>
+
+                <div class="card">
+                    <h5>Suporte Técnico</h5>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="member_container">
+            <div class="team_title">
+                <h2>Membros - Resumo</h2>
+
+            </div>
+            <div class="member_cards">
+                <div class="row">
+
+                    <div class="card">
+                        <h5>Membros Ativos</h5>
+
+
+                    </div>
+                    <div class="card">
+                        <h5>Membros sem tarefas</h5>
+
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="card" >
+                        <h5>Membros Ociosos</h5>
+
+
+                    </div>
+                    <div class="card">
+                        <h5>Membros com tarefas</h5>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="manage_member">Gerenciar Membros</button>
+        </div>
+
+    </div>
+
+    <div class="second_container">
+
+        <div class="tasks_container">
+            <div class="tasks_title">
+                <h2>Tarefas - Resumo</h2>
+
+            </div>
+            <div class="tasks_cards">
+                <div class="card">
+                    <h5>Tarefas Ativas</h5>
+                    <div class="card-data" id="active"></div>
+
+
+
+                </div>
+                <div class="card">
+                    <h5>Tarefas Pendentes</h5>
+                    <div class="card-data" id="pending"></div>
+
+
+                </div>
+                <div class="card" >
+                    <h5>Tarefas em Andamento</h5>
+                    <div class="card-data" id="ongoing"></div>
+
+
+                </div>
+                <div class="card">
+                    <h5>Esperando Aprovação</h5>
+                    <div class="card-data" id="waiting"></div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="./js/script.js"></script>
 </body>
 </html>

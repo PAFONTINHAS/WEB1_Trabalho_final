@@ -1,5 +1,6 @@
 const { query } = require("express");
 const MemberRepository = require("../repositories/MemberRepository");
+const EmployeeRepository = require("../repositories/EmployeeRepository");
 var member;
 
 class Member {
@@ -52,7 +53,7 @@ class Member {
     const { codEquipe, codFunc, codTarefa} = request.body;
 
     if(codEquipe){
-      const queryTeam = await MemberRepository.findByTeam(codEquipe);
+      const queryTeam = await MemberRepository.searchTeam(codEquipe);
       if (!queryTeam) {
         return response
           .status(404)
@@ -60,8 +61,8 @@ class Member {
       }
     }
     if(codFunc){
-      const queryTeam = await MemberRepository.findByEmployee(codEquipe);
-      if (!queryTeam) {
+      const queryFunc = await EmployeeRepository.findById(codFunc);
+      if (!queryFunc) {
         return response
           .status(404)
           .json({ error: "Employee not found" });

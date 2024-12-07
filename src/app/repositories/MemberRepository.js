@@ -29,9 +29,9 @@ class MemberRepository {
 
   }
 
-  async findByEmployee(id) {
+  async searchTeam(id) {
     query = await db.query(`
-      SELECT * FROM funcionario WHERE id = ?
+      SELECT * FROM equipe WHERE codEquipe = ?
     `, [id]);
 
     return query;

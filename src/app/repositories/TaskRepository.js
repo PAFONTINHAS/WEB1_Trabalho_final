@@ -3,7 +3,7 @@ const db = require("../models/ConnectDatabase");
 class TaskRepository {
   async findAll() {
     const rows = await db.query(`
-      SELECT tasks.*, funcionario.nomeFunc FROM task
+      SELECT COUNT(codTarefa) FROM tarefa GROUP BY codTarefa;
 
     `);
   return rows;
@@ -12,7 +12,7 @@ class TaskRepository {
 
   async findById(id) {
     const [rows] = await db.query(`
-      SELECT * FROM tarefa WHERE id = ?
+      SELECT * FROM tarefa WHERE codTarefa = ?
 
     `, [id]);
 
@@ -29,17 +29,16 @@ class TaskRepository {
 
   }
 
-  async findByStatus(status){
+  async findTaskCountByStatus(){
     // MEXI NO SEU LADO DA CERCA PORQUE QUERIA FAZER UM TESTE PARA VER SE DAVA PARA PEGAR
     // APENAS UM AGRUPAMENTO DE UM CAMPO
     // PARA SIMULAR ALGO COMO: 10 TAREFAS PENDENTES
     // AÍ A GENTE PUXA DO BANCO DE DADOS DEPENDENDO DO STATUS DA TAREFA
     // E DEU BOA WOOOHOOOO!
     const rows = await db.query(`
-      SELECT titulo, COUNT(statusTarefa) AS "Tarefas Pendentes" FROM tarefa WHERE statusTarefa = ?
-      GROUP BY titulo
+      SELECT statusTarefa, COUNT(*) AS total FROM tarefa GROUP BY statusTarefa
 
-    `, [status]);
+    `);
 
     return rows;
 

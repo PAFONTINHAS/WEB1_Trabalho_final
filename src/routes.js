@@ -7,35 +7,36 @@ const employee   = require('./app/controllers/EmployeeController')
 const routes = Router();
 
 // TASK ROUTES
-routes.get("/task", task.index);
-routes.get("/task/:id", task.show);
-routes.get("/task/status/:status", task.showStatus)
-routes.post("/task", task.store);
-routes.put("/task/:id", task.update);
-routes.delete("/task/:id", task.delete);
+routes.get("/tasks", task.index);
+routes.get("/tasks/status", task.showTaskCountByStatus)
+routes.get("/tasks/:id", task.show);
+routes.post("/tasks", task.store);
+routes.put("/tasks/:id", task.update);
+routes.delete("/tasks/:id", task.delete);
 
 // TEAM ROUTES
-routes.get("/team", task.index);
-routes.get("/team/:id", team.show);
-routes.post("/team", team.store);
-routes.put("/team/:id", team.update);
-routes.delete("/team/:id", team.delete);
+routes.get("/teams", task.index);
+routes.get("/teams/:id", team.show);
+routes.post("/teams", team.store);
+routes.put("/teams/:id", team.update);
+routes.delete("/teams/:id", team.delete);
 
 // MEMBER ROUTES
-routes.get("/member", member.index);
-routes.get("/member/codEquipe/:id", member.showByTeam);
-routes.get("/member/codFunc/:id", member.showAllMembersTeam);
-routes.get("/member/:id", member.showByMember);
-routes.post("/member", member.store);
-routes.put("/member/:id", member.update);
-routes.delete("/member/:id", member.delete);
+routes.get("/members", member.index);
+routes.get("/members/codEquipe/:id", member.showByTeam);
+routes.get("/members/codFunc/:id", member.showAllMembersTeam);
+routes.get("/members/:id", member.showByMember);
+routes.post("/members", member.store);
+routes.put("/members/:id", member.update);
+routes.delete("/members/:id", member.delete);
 
 // EMPLOYEE ROUTES
-routes.get("/employee", employee.index);
-routes.get("/employee/:id", employee.show);
-routes.post("/employee", employee.store);
-routes.put("/employee/:id", employee.update);
-routes.delete("/employee/:id", employee.delete);
+routes.get("/employees", employee.index);
+routes.get("/employees/:id", employee.show);
+routes.get("/employees/codPermissao/:id", employee.showByPermission);
+routes.post("/employees", employee.store);
+routes.put("/employees/:id", employee.update);
+routes.delete("/employees/:id", employee.delete);
 
 
 module.exports = routes;

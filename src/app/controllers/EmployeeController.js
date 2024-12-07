@@ -20,6 +20,20 @@ class Employee {
     response.json(employee);
   }
 
+  async showByPermission(request, response){
+    const {id} = request.params;
+    employee = await EmployeeRepository.findByPermission(id);
+
+    if(!employee){
+      return response.status(404).json({ error: "Permission not found!" });
+
+    }
+
+    response.json(employee);
+
+
+  }
+
   async store(request, response) {
     const { nomeFunc, emailFunc, cargo, codPermissao} = request.body;
     // Definindo regra de que email é obrigatório
@@ -51,6 +65,8 @@ class Employee {
     response.status(201).json(employee);
 
   }
+
+
 
   async update(request, response) {
     //Atualizar um registro existente
