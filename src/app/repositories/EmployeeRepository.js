@@ -37,6 +37,24 @@ class EmployeeRepository {
     return query;
   }
 
+
+  async findEmployeeCountByStatus(){
+    query= await db.query(`
+      SELECT
+          CASE
+              WHEN ativo = 1 THEN 'online'
+              WHEN ativo = 0 THEN 'offline'
+          END AS status,
+          COUNT(*) AS total
+      FROM funcionario
+      GROUP BY ativo;
+    `,);
+
+    return query;
+  }
+
+
+
   async findByEmail(email) {
     [query] = await db.query(`
       SELECT * FROM funcionario WHERE emailFunc = '${email}'

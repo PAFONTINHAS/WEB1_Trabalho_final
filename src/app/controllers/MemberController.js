@@ -47,6 +47,31 @@ class Member {
     response.json(member);
 
   }
+  async showNoTasks(request, response){
+    // Obter um registro
+
+    member = await MemberRepository.countMembersWithoutTasks();
+
+    response.json(member);
+
+  }
+
+
+  async showMemberCountByStatus(request, response){
+
+    const memberStatus = await EmployeeRepository.findEmployeeCountByStatus();
+
+    response.json(memberStatus);
+
+  }
+  async showMemberCountByTasks(request, response){
+
+    const memberStatus = await MemberRepository.findMemberCountByTasks();
+
+    response.json(memberStatus);
+
+  }
+
 
 
   async store(request, response) {

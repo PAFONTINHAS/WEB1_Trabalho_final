@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/ManageTask.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -12,23 +12,29 @@
     <title>Tarefas</title>
 </head>
 
-<body id="manageTaskBody">
+<!--
+    id="manageTaskBody"
+
+    Por que esse id dentro de body?
+-->
+<body>
     <header>
         <div class="nav_bar">
-            <button><a href="">Tarefas</a></button>
-            <button><a href="">Funcionários</a></button>
+            <button onclick="location.href='index.html'">Dashboard</button>
+            <button onclick="location.href='managetask.html'">Tarefas</button>
+            <button onclick="location.href=''">Funcionários</button>
         </div>
     </header>
     <br>
     <div class="containerTask">
         <div class="taskBox">
-            <h1 class="title">Tarefas Pendentes</h1>
             <div class="pendingBox">
-                <div class="search">
+                <h1 class="title">Tarefas Pendentes</h1>
+                <!-- <div class="search">
                     <input type="text" placeholder="Buscar" class="inputSearch"> <button class="btnSearch"><img
                             src="./icons/search.svg" alt="search"></button><button class="btnAdd"><img
                             src="./icons/plus.svg" alt="add"></button>
-                </div>
+                </div> -->
                 <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
                 <ul>
                     <li class="listTask">
@@ -75,8 +81,38 @@
                 </ul>
             </div>
             <br>
-            <h1 class="title">Tarefas Concluídas</h1>
+            <div class="onGoingBox">
+                <h1 class="title">Em Andamento</h1>
+                <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
+                <ul>
+                    <li class="listTask">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam! <div>
+                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
+                        </div>
+                    </li>
+                    <li class="listTask">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, expedita?
+                        <div>
+                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="waitingAprovalBox">
+                <h1 class="title">Esperando Aprovação</h1>
+                <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
+                <ul>
+                    <li class="listTask">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam! <div>
+                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
+                        </div>
+                    </li>
+                    <li class="listTask">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, expedita?
+                        <div>
+                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <div class="concludedBox">
+                <h1 class="title">Tarefas Concluídas</h1>
                 <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
                 <ul>
                     <li class="listTask">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam! <div>

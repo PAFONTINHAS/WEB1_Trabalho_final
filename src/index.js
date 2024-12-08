@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require('cors');
 const db = require("./app/models/ConnectDatabase");
 const routes = require("./routes");
-const app = express();
+const app = express(); 
 const port = 3000;
 
 db.testConnection().catch((err) => {

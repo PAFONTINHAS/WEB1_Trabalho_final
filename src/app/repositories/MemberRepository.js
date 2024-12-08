@@ -65,6 +65,25 @@ class MemberRepository {
     return query;
   }
 
+  async countMembersWithoutTasks(){
+    query= await db.query(`
+      SELECT COUNT(*) AS sem_tarefas
+        FROM Funcionario F
+        LEFT JOIN Membros_Tarefas MT ON F.codFunc = MT.codFunc
+        WHERE MT.codFunc IS NULL;
+    `,);
+
+    return query;
+  }
+
+  async findMemberCountByTasks(){
+    query= await db.query(`
+      SELECT COUNT(DISTINCT codFunc) AS com_tarefas FROM membros_tarefas;
+    `,);
+
+    return query;
+  }
+
 
   async create({ codFunc, codEquipe}) {
     query = await db.query(`
