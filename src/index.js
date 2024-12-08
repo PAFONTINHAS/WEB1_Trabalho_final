@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const db = require("./app/models/ConnectDatabase");
 const routes = require("./routes");
 const app = express();
@@ -10,6 +11,8 @@ db.testConnection().catch((err) => {
   );
   process.exit(1);
 });
+
+app.use(cors());
 
 app.use(express.json());
 

@@ -25,6 +25,18 @@ class EmployeeRepository {
 
   }
 
+  async findByPermission(id){
+    query = await db.query(`
+      SELECT funcionario.*, permissao.descricao, permissao.nivelAcesso
+      FROM funcionario
+      INNER JOIN permissao ON permissao.codPermissao = funcionario.codPermissao
+      WHERE permissao.codPermissao = ?
+      `, [id]
+    );
+
+    return query;
+  }
+
   async findByEmail(email) {
     [query] = await db.query(`
       SELECT * FROM funcionario WHERE emailFunc = '${email}'
@@ -53,7 +65,23 @@ class EmployeeRepository {
     };
   }
 
-  update() {
+  async update(id, updatedFields) {
+
+      const fields = Object.keys(updatedFields)
+      .map(key => `${key} = ?`)
+      .join(", "); // Cria algo como: "nomeFunc = ?, emailFunc = ?"
+
+    const values = Object.values(updatedFields); // Valores a serem atualizados
+    values.push(id); // Adiciona o ID ao final para o WHERE
+
+    const query = `
+      UPDATE funcionario
+      SET ${fields}
+      WHERE codFunc = ?;
+    `;
+
+    await db.query(query, values);
+
 
   }
 

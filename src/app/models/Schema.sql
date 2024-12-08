@@ -1,6 +1,3 @@
-DROP DATABASE IF EXISTS task_management;
-CREATE DATABASE task_management;
-USE task_management;
 
 CREATE TABLE IF NOT EXISTS Permissao(
 	codPermissao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -22,12 +19,11 @@ CREATE TABLE IF NOT EXISTS Equipe(
 );
 
 CREATE TABLE IF NOT EXISTS Membros(
-	codMembro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    codEquipe INT NOT NULL,
     codFunc INT NOT NULL,
+    codEquipe INT NOT NULL,
+    PRIMARY KEY (codFunc, codEquipe),
     FOREIGN KEY (codEquipe) REFERENCES Equipe(codEquipe),
 	FOREIGN KEY (codFunc) REFERENCES Funcionario(codFunc)
-
 );
 
 CREATE TABLE IF NOT EXISTS Tarefa(
@@ -36,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Tarefa(
     descricao VARCHAR(200) NOT NULL,
     dataInicio DATE NOT NULL,
     dataLimite DATE NOT NULL,
-    statusTarefa ENUM('Pendente', 'Em andamento', 'Concluida'),
+    statusTarefa ENUM('pendente', 'em-andamento', 'esperando-aprovacao', 'concluida'),
     codCriador INT NOT NULL,
     codEquipe INT NOT NULL,
 	FOREIGN KEY (codEquipe) REFERENCES Equipe(codEquipe),
@@ -44,3 +40,10 @@ CREATE TABLE IF NOT EXISTS Tarefa(
 
 );
 
+CREATE TABLE IF NOT EXISTS Membros_tarefas (
+  codFunc INT,
+  codTarefa INT,
+  PRIMARY KEY (codFunc, codTarefa),
+  FOREIGN KEY (codFunc) REFERENCES funcionario(codFunc),
+  FOREIGN KEY (codTarefa) REFERENCES tarefa(codTarefa)
+);

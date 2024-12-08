@@ -2,7 +2,7 @@ const db = require("../models/ConnectDatabase");
 
 class TaskRepository {
   async findAll() {
-    query = await db.query(`
+    const rows = await db.query(`
       SELECT tasks.* FROM task
       LEFT JOIN categories ON categories.id = contacts.category_id
       `);
@@ -11,6 +11,12 @@ class TaskRepository {
   }
 
   async findById(id) {
+    const [rows] = await db.query(`
+      SELECT * FROM tarefa WHERE codTarefa = ?
+
+    `, [id]);
+
+    return rows;
 
   }
 
@@ -19,6 +25,22 @@ class TaskRepository {
   }
 
   async create({ name, email, phone, category_id }) {
+
+
+  }
+
+  async findTaskCountByStatus(){
+    // MEXI NO SEU LADO DA CERCA PORQUE QUERIA FAZER UM TESTE PARA VER SE DAVA PARA PEGAR
+    // APENAS UM AGRUPAMENTO DE UM CAMPO
+    // PARA SIMULAR ALGO COMO: 10 TAREFAS PENDENTES
+    // AÍ A GENTE PUXA DO BANCO DE DADOS DEPENDENDO DO STATUS DA TAREFA
+    // E DEU BOA WOOOHOOOO!
+    const rows = await db.query(`
+      SELECT statusTarefa, COUNT(*) AS total FROM tarefa GROUP BY statusTarefa
+
+    `);
+
+    return rows;
 
 
   }
