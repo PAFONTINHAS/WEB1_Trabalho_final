@@ -1,0 +1,199 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat';
+
+}
+
+
+/*
+      /-------------------------------------/
+     /         BARRA DE ROLAGEM            /
+    /-------------------------------------/
+*/
+
+
+    /* Estilizando a barra de rolagem para navegadores baseados em WebKit */
+    ::-webkit-scrollbar {
+        width: 12px; /* Largura da barra de rolagem vertical */
+        height: 12px; /* Altura da barra de rolagem horizontal */
+    }
+
+    /* Deixando o trilho da barra de rolagem invisível */
+    ::-webkit-scrollbar-track {
+        background: #959a9e;
+    }
+
+    /* Estilizando a alça da barra de rolagem */
+    ::-webkit-scrollbar-thumb {
+        background: #19568a; /* Cinza com 80% de opacidade */
+        border-radius: 6px; /* Bordas arredondadas */
+        border: 3px solid transparent; /* Bordas transparentes para criar espaço entre o thumb e o track */
+        background-clip: padding-box; /* Faz com que a cor de fundo não cubra as bordas transparentes */
+    }
+
+    /* Estilizando a alça da barra de rolagem ao passar o mouse */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #19568a; /* Mais escuro com 80% de opacidade */
+    }
+
+
+body{
+    background-color: #959a9e;
+}
+
+/* HEADER  */
+
+header{
+    background-color: #19568a;
+    padding: 5px;
+    border-radius: 0 0 8px 8px;
+}
+
+.nav_bar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+}
+
+button{
+    margin: 2px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #1b374f;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.9rem;
+    width: 12%;
+
+}
+
+/* FILTER */
+/* Container principal */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #19568a;
+    /* border: 1px solid #ddd; */
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilização dos selects e botão */
+.filter-container select,
+.filter-container button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.filter-container select:hover,
+.filter-container button:hover {
+    border-color: #888;
+    background-color: #f3f3f3;
+}
+
+.filter-container button {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+}
+
+.filter-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Lista de funcionários */
+#employeeList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.listEmployee {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.listEmployee:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
+}
+
+.listEmployee strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.listEmployee br {
+    margin-bottom: 5px;
+}
+
+
+/* EMPLOYEES */
+
+.containerEmployee{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 10px;
+    /* width: 50%; */
+
+}
+
+.listEmployees{
+    display: flex;
+    flex-direction: column;
+    background-color: #19568a;
+    border-radius: 20px;
+    color: white;
+    padding: 20px;
+    margin: 20px;
+    /* height: 100%; */
+    font-size: 1rem;
+    /* width: 100%; */
+
+}
+.listEmployee{
+
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: white;
+    margin: 10px;
+    color: black;
+    list-style-type: none;
+    width: 100%;
+}
+
+.listEmployee:hover{
+    background-color: grey;
+}
+

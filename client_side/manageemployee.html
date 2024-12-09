@@ -1,1 +1,64 @@
-//CLARISSA
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/manageEmployee.css">
+    <title>Gerenciador de Funcionários</title>
+</head>
+<header>
+    <div class="nav_bar">
+        <button onclick="location.href='index.html'">Dashboard</button>
+        <button onclick="location.href='managetask.html'">Tarefas</button>
+        <button onclick="location.href='manageEmployee.html'">Funcionários</button>
+    </div>
+</header>
+<body>
+    <div class="filter-container">
+        <label for="nivelAcesso">Filtrar por Nível de Acesso:</label>
+        <select id="nivelAcesso">
+            <option value="">Todos</option>
+            <option value="5">Administrador</option>
+            <option value="4">Gerente</option>
+            <option value="3">Líder da Equipe</option>
+            <option value="2">Funcionário</option>
+            <option value="1">Estagiário</option>
+        </select>
+        <label for="equipe">Filtrar por Equipe:</label>
+        <select id="equipe">
+            <option value="">Todas</option>
+            <option value="1">Desenvolvimento de Software</option>
+            <option value="2">Recursos Humanos</option>
+            <option value="3">Marketing Digital</option>
+            <option value="4">Suporte Técnico</option>
+            <option value="5">Financeiro</option>
+        </select>
+
+        <button id="applyFilters">Aplicar Filtros</button>
+    </div>
+
+    <div class="containerEmployee">
+        <div class="listEmployees">
+            <h1 class="title">Funcionários</h1>
+            <ul id="employeeList">
+
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <!-- <form id="employeeForm">
+        <h3>Adicionar Funcionário</h3>
+        <input type="text"   name="nomeFunc"     id="nomeFunc"     placeholder="Nome do Funcionário"  required>
+        <input type="text"   name="emailFunc"    id="emailFunc"    placeholder="Email do Funcionário" required>
+        <input type="text"   name="cargo"        id="cargo"        placeholder="Cargo do Funcionário" required>
+        <input type="number" name="codPermissao" id="codPermissao" placeholder="Nível de Permissão"   required>
+        <button type="submit">Adicionar funcionário</button>
+    </form> -->
+
+    <script src="./js/script.js"></script>
+    <script src="./js/manageEmployee.js"></script>
+</body>
+</html>

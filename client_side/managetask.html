@@ -7,126 +7,73 @@
     <link rel="stylesheet" href="./css/ManageTask.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Tarefas</title>
 </head>
 
-<!--
-    id="manageTaskBody"
-
-    Por que esse id dentro de body?
--->
 <body>
     <header>
         <div class="nav_bar">
             <button onclick="location.href='index.html'">Dashboard</button>
             <button onclick="location.href='managetask.html'">Tarefas</button>
-            <button onclick="location.href=''">Funcionários</button>
+            <button onclick="location.href='manageEmployee.html'">Funcionários</button>
         </div>
     </header>
-    <br>
+
+    <div class="taskFilter">
+        <button class="filterButton" data-status="pendente">Pendentes</button>
+        <button class="filterButton" data-status="em_andamento">Em Andamento</button>
+        <button class="filterButton" data-status="aguardando">Esperando Aprovação</button>
+        <button class="filterButton" data-status="concluido">Concluídas</button>
+    </div>
+
     <div class="containerTask">
-        <div class="taskBox">
-            <div class="pendingBox">
-                <h1 class="title">Tarefas Pendentes</h1>
-                <!-- <div class="search">
-                    <input type="text" placeholder="Buscar" class="inputSearch"> <button class="btnSearch"><img
-                            src="./icons/search.svg" alt="search"></button><button class="btnAdd"><img
-                            src="./icons/plus.svg" alt="add"></button>
-                </div> -->
-                <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
-                <ul>
-                    <li class="listTask">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, itaque!
-                        <div>
-                            <button class="btnActions"><img src="./icons/pencil-fill.svg" alt="edit"></button>
-                            <button class="btnActions"><img src="./icons/check-lg.svg" alt="finish"></button>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                    <li class="listTask">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi tempora quia
-                        dolor.
-                        <div>
-                            <button class="btnActions"><img src="./icons/pencil-fill.svg" alt="edit"></button>
-                            <button class="btnActions"><img src="./icons/check-lg.svg" alt="finish"></button>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                    <li class="listTask">
-                        Lorem ipsum dolor sit amet consectetur.
-                        <div>
-                            <button class="btnActions"><img src="./icons/pencil-fill.svg" alt="edit"></button>
-                            <button class="btnActions"><img src="./icons/check-lg.svg" alt="finish"></button>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                    <li class="listTask">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam!
-                        <div>
-                            <button class="btnActions"><img src="./icons/pencil-fill.svg" alt="edit"></button>
-                            <button class="btnActions"><img src="./icons/check-lg.svg" alt="finish"></button>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                    <li class="listTask">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, expedita?
-                        <div>
-                            <button class="btnActions"><img src="./icons/pencil-fill.svg" alt="edit"></button>
-                            <button class="btnActions"><img src="./icons/check-lg.svg" alt="finish"></button>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <br>
-            <div class="onGoingBox">
-                <h1 class="title">Em Andamento</h1>
-                <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
-                <ul>
-                    <li class="listTask">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam! <div>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                    <li class="listTask">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, expedita?
-                        <div>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="waitingAprovalBox">
-                <h1 class="title">Esperando Aprovação</h1>
-                <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
-                <ul>
-                    <li class="listTask">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam! <div>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                    <li class="listTask">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, expedita?
-                        <div>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="concludedBox">
-                <h1 class="title">Tarefas Concluídas</h1>
-                <!-- elementos da lista colocados para visualização. Devem posteriormente ser inseridos automaticamente pelo backend -->
-                <ul>
-                    <li class="listTask">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam! <div>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                    <li class="listTask">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, expedita?
-                        <div>
-                            <button class="btnActions"><img src="./icons/trash.svg" alt="delete"></button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="taskBox" id="pendente" style="display: block;">
+            <h1 class="title">Tarefas Pendentes</h1>
+            <ul id="pending_task_list">
+
+            </ul>
         </div>
+        <div class="taskBox" id="em_andamento" style="display: none;">
+            <h1 class="title">Tarefas em Andamento</h1>
+            <ul id="ongoing_task_list">
+
+            </ul>
+        </div>
+        <div class="taskBox" id="aguardando" style="display: none;">
+            <h1 class="title">Tarefas Aguardando</h1>
+            <ul id="awaiting_task_list">
+
+            </ul>
+        </div>
+        <div class="taskBox" id="concluido" style="display: none;">
+            <h1 class="title">Tarefas Concluídas</h1>
+            <ul id="finished_task_list">
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal_container">
+       <div class="finish_modal" id="finish_modal" style="display: none;">
+        <div class="finish_title">
+
+        </div>
+       </div>
+
+       <div class="delete_modal">
+
+       </div>
+
+       <div class="update_modal">
+
+       </div>
+
+    </div>
+
+
+    <script src="./js/script.js"></script>
+    <script src="./js/manageTask.js"></script>
 </body>
 
 </html>

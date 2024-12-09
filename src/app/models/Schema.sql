@@ -76,3 +76,11 @@ FROM tarefa t
 INNER JOIN Funcionario f ON f.codFunc = t.codCriador
 INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
 ORDER BY t.dataCriacao DESC Limit 5;
+
+-- SELECIONAR AS TAREFAS ORDENADAS POR STATUS
+SELECT t.titulo, t.dataInicio, t.dataLimite, t.statusTarefa, f.nomeFunc, e.nomeEquipe
+FROM tarefa t
+INNER JOIN Funcionario f ON f.codFunc = t.codCriador
+INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
+ORDER BY t.statusTarefa;
+
