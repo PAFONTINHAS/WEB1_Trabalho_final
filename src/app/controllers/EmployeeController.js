@@ -1,11 +1,25 @@
 const { query } = require("express");
 const EmployeeRepository = require("../repositories/EmployeeRepository");
+const e = require("express");
 var employee;
 class Employee {
   async index(request, response) {
     // Listar todos os registros
     employee = await EmployeeRepository.findAll();
     response.json(employee);
+  }
+
+  async filterEmployees(request, response){
+    const {nivelAcesso, equipe} = request.query;
+
+    employee = await EmployeeRepository.filterByAcessAndTeam(nivelAcesso, equipe);
+
+    if(!employee){
+      return response.status(404).json({ error: "Wrong Filter" });
+    }
+
+    return response.json(employee);
+
   }
 
   async show(request, response) {

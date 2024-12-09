@@ -53,6 +53,27 @@ class EmployeeRepository {
     return query;
   }
 
+  async filterByAcessAndTeam(nivelAcesso, equipe){
+    const query = `
+        SELECT f.nomeFunc AS funcionario, f.emailFunc AS email, f.cargo, GROUP_CONCAT(e.nomeEquipe) AS equipes, p.descricao, p.nivelAcesso
+        FROM Funcionario f
+        LEFT JOIN Membros m ON f.codFunc = m.codFunc
+        LEFT JOIN Equipe e ON m.codEquipe = e.codEquipe
+        INNER JOIN Permissao p ON p.codPermissao = f.codPermissao
+        WHERE 1=1
+        ${nivelAcesso ? `AND p.nivelAcesso = ?` : ""}
+        ${equipe ? `AND e.codEquipe = ?` : ""}
+        GROUP BY f.codFunc, funcionario, email, f.cargo
+        ORDER BY p.codPermissao ASC
+    `;
+
+    const params = [];
+    if (nivelAcesso) params.push(nivelAcesso);
+    if (equipe) params.push(equipe);
+
+    return await db.query(query, params);
+  }
+
 
 
   async findByEmail(email) {

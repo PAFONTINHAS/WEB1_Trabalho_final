@@ -22,7 +22,7 @@ class Task {
 
   async showTaskCountByStatus(request, response){
 
-    const taskStatus = await TaskRepository.findTaskCountByStatus();
+    const taskStatus = await TaskRepository.countTasksByStatus();
 
     response.json(taskStatus);
 
@@ -40,6 +40,22 @@ class Task {
 
     response.json(latestTasks);
   }
+
+  async showTasksByStatus(request, response){
+
+    const {status} = request.params;
+
+    const tasksByStatus = await TaskRepository.findTasksByStatus(status);
+
+    if(!tasksByStatus){
+      return response.status(404).json({error:"Status não encontrado"});
+
+    }
+
+    response.json(tasksByStatus);
+  }
+
+
 //create
   async store(request, response) {
     const {titulo, equipe, membros, data_inicio, data_limite, status, criador} = request.body;

@@ -11,7 +11,7 @@ routes.get("/tasks", task.index);
 routes.get("/tasks/count", task.countAllTasks)
 routes.get("/tasks/latest_tasks", task.showLatestTasks)
 routes.get("/tasks/status", task.showTaskCountByStatus)
-// routes.get("/tasks/status/:status", task.showTasksByStatus)
+routes.get("/tasks/status/:status", task.showTasksByStatus)
 routes.get("/tasks/:id", task.show);
 routes.post("/tasks", task.store);
 routes.put("/tasks/:id", task.update);
@@ -38,6 +38,7 @@ routes.delete("/members/:id", member.delete);
 
 // EMPLOYEE ROUTES
 routes.get("/employees", employee.index);
+routes.get("/employees/filter", employee.filterEmployees);
 routes.get("/employees/:id", employee.show);
 routes.get("/employees/codPermissao/:id", employee.showByPermission);
 routes.post("/employees", employee.store);

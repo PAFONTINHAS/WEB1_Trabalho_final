@@ -1,10 +1,12 @@
 const db = require("../models/ConnectDatabase");
 
 class TaskRepository {
+
+  // ROTAS PADRÃO
+
   async findAll() {
     const rows = await db.query(`
-      SELECT tasks.* FROM task
-      LEFT JOIN categories ON categories.id = contacts.category_id
+      SELECT tarefa.* FROM tarefa
       `);
   return rows;
 
@@ -20,13 +22,28 @@ class TaskRepository {
 
   }
 
+  async findByEmail(email) {
 
+  }
+
+  async create({ name, email, phone, category_id }) {
+
+
+  }
+
+
+  update() {
+
+  }
+
+  async delete(id) {
+
+  }
+
+
+// ROTAS ESPECIAIS
   async countAllTasks(){
-    // MEXI NO SEU LADO DA CERCA PORQUE QUERIA FAZER UM TESTE PARA VER SE DAVA PARA PEGAR
-    // APENAS UM AGRUPAMENTO DE UM CAMPO
-    // PARA SIMULAR ALGO COMO: 10 TAREFAS PENDENTES
-    // AÍ A GENTE PUXA DO BANCO DE DADOS DEPENDENDO DO STATUS DA TAREFA
-    // E DEU BOA WOOOHOOOO!
+
     const rows = await db.query(`
       SELECT COUNT(*) AS tarefas_ativas FROM tarefa
 
@@ -37,16 +54,7 @@ class TaskRepository {
 
   }
 
-  async findByEmail(email) {
-
-  }
-
-  async create({ name, email, phone, category_id }) {
-
-
-  }
-
-  async findTaskCountByStatus(){
+  async countTasksByStatus(){
 
     const rows = await db.query(`
       SELECT statusTarefa, COUNT(*) AS total FROM tarefa GROUP BY statusTarefa
@@ -54,9 +62,21 @@ class TaskRepository {
     `);
 
     return rows;
-
-
   }
+
+  async findTasksByStatus(status) {
+
+    const rows = await db.query(`
+        SELECT t.codTarefa, t.titulo, t.dataInicio, t.dataLimite, t.statusTarefa, f.nomeFunc AS funcionario, e.nomeEquipe AS equipe
+        FROM tarefa t
+        INNER JOIN Funcionario f ON f.codFunc = t.codCriador
+        INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
+        WHERE t.statusTarefa = ?
+        ORDER BY t.titulo;
+    `, [status]);
+    return rows;
+}
+
   async findLatestTasks(){
 
     const rows = await db.query(`
@@ -75,13 +95,6 @@ class TaskRepository {
   }
 
 
-  update() {
-
-  }
-
-  async delete(id) {
-
-  }
 }
 
 module.exports = new TaskRepository();
