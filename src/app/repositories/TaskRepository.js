@@ -1,8 +1,7 @@
 const db = require("../models/ConnectDatabase");
 
 class TaskRepository {
-
-  // ROTAS PADRÃO
+  //rotas padrao ok
 
   // quero saber quais sao todas as tarefas
   async findAll() {
@@ -21,18 +20,38 @@ class TaskRepository {
   }
 
   // pensar em sql, criar a instancia, o dado 
-  async create({ name, email, phone, category_id }) {
-
-
+  async create({titulo, descricao, dataCriacao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe}) {
+    const rows = await db.query(
+      ` INSERT INTO tarefa (titulo, descricao, dataCriacao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe)
+        VALUES (?, ?, ?, ?, ? , ?, ?, ?)`, 
+        [titulo, descricao, dataCriacao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe]
+    )
   }
 
 // atualizar o registro especifico
-  update() {
 
+  async update(id) {
+    const fields = Object.keys(updatedFields)
+      .map(key => `${key} = ?`)
+      .join(", "); // Cria algo como: "nomeFunc = ?, emailFunc = ?"
+
+    const values = Object.values(updatedFields); // Valores a serem atualizados
+    values.push(id); // Adiciona o ID ao final para o WHERE
+
+    const query = `
+      UPDATE tarefa
+      SET ${fields}
+      WHERE codFunc = ?;
+    `;
+
+    await db.query(query, values);
   }
 // deletar o registro especifico
   async delete(id) {
-
+    const [rows] = await db.query(`
+      DELETE FROM tarefa WHERE codTarefa = ?`, 
+      [id]);
+    return rows;
   }
 
 
