@@ -1,0 +1,99 @@
+/* Modal Background */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.7); /* Gray with transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Modal Content */
+  .modal {
+    background-color: #19568a; /* Dark Blue */
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px; /* Max width of the modal */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+  }
+  
+  .modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem; /* Adjust font size for better readability */
+  }
+  
+  /* Input Fields */
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #d8d9d9; /* Light Gray */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+    font-size: 1rem; /* Ensures font size adapts well */
+  }
+  
+  /* Button */
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #d8d9d9; /* Light Gray */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #333;
+    font-size: 1rem; /* Ensures button text fits better */
+    box-sizing: border-box; /* Ensures padding is included in the width */
+  }
+  
+  .submit-btn:hover {
+    background-color: #c0c1c1;
+  }
+  
+  /* Responsiveness for smaller screens */
+  @media (max-width: 768px) {
+    .modal {
+      padding: 15px; /* Reduce padding for smaller screens */
+      width: 90%; /* Ensure modal uses most of the screen on small devices */
+    }
+  
+    .input-field {
+      font-size: 0.9rem; /* Adjust font size for small screens */
+      padding: 10px; /* Reduce padding for smaller screens */
+    }
+  
+    .submit-btn {
+      font-size: 0.9rem; /* Adjust button font size */
+      padding: 10px; /* Reduce padding */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .modal {
+      width: 95%; /* Ensure modal uses nearly the whole screen on very small devices */
+    }
+  
+    .input-field {
+      font-size: 0.9rem;
+      padding: 8px; /* Further reduce padding */
+    }
+  
+    .submit-btn {
+      font-size: 0.9rem;
+      padding: 8px; /* Further reduce padding */
+    }
+  
+    .modal h2 {
+      font-size: 1.2rem; /* Make the title smaller for very small screens */
+    }
+  }
