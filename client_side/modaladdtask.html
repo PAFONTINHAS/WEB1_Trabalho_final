@@ -1,1 +1,39 @@
-
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal de Tarefa</title>
+    <link rel="stylesheet" href="./css/modalAddTask.css" />
+  </head>
+  <body>
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="modal">
+        <h2>Adicionar Tarefa</h2>
+        <form>
+          <input type="text" placeholder="Título" class="input-field" />
+          <textarea placeholder="Objetivo" class="input-field"></textarea>
+          <select class="input-field">
+            <option value="" disabled selected>Equipe</option>
+            <option value="equipe1">Equipe 1</option>
+            <option value="equipe2">Equipe 2</option>
+          </select>
+          <select class="input-field">
+            <option value="" disabled selected>Membros</option>
+            <option value="membro1">Membro 1</option>
+            <option value="membro2">Membro 2</option>
+          </select>
+          <input type="date" class="input-field" placeholder="Prazo" />
+          <select class="input-field">
+            <option value="" disabled selected>Status</option>
+            <option value="pendente">Pendente</option>
+            <option value="em andamento">Em andamento</option>
+            <option value="concluída">Concluída</option>
+          </select>
+          <button type="submit" class="submit-btn">Adicionar Tarefa</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
