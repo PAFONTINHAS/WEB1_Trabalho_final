@@ -180,6 +180,7 @@ button{
     background-color: #335069;
     padding: 10px;
     border-radius: 5px;
+    height: 150px;
   }
 
   .add-member {
@@ -190,6 +191,7 @@ button{
     cursor: pointer;
     margin-bottom: 10px;
     width:12%;
+    width: 300px;
   }
 
   .notes-section {
