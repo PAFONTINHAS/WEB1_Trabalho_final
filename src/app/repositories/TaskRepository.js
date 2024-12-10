@@ -6,7 +6,7 @@ class TaskRepository {
 
   async findAll() {
     const rows = await db.query(`
-      SELECT tarefa.* FROM tarefa
+      SELECT nomeEquipe AS equipe FROM equipe
       `);
   return rows;
 

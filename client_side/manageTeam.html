@@ -20,38 +20,54 @@
 
         </div>
     </header>
-    <main class="main-content">
-      <section class="team-section">
-        <div class="box team">
-          <h2>Equipe:</h2>
-        </div>
-        <div class="box description">
-          <h2>Descrição:</h2>
-        </div>
-      </section>
-      <section class="tasks-section">
-        <div class="tabs">
-          <button class="tab-button">Tarefas pendentes</button>
-          <button class="tab-button">Tarefas em andamento</button>
-          <button class="tab-button">Tarefas concluídas</button>
-        </div>
-        <div class="tasks">
-          <div class="task">Tarefa 1 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
-          <div class="task">Tarefa 2 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
-          <div class="task">Tarefa 3 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
-          <button class="add-task" id="add-task">Adicionar tarefa</button>
-          <div id="modal-add-task-container"></div>
-        </div>
-      </section>
-      <section class="members-section">
-        <div class="members-box">
-          <button class="add-member" id="open-modal-btn">Novo membro +</button>
-          <div id="modal-container"></div>
-          <div>
-            <h3>Supervisores</h3>
+    <!-- <main class="main-content"> -->
+    <div class="container">
+        <div class="left">
+          <section class="team-section">
+            <div class="box team">
+              <h2>Equipe:</h2>
+            </div>
+            <div class="box description">
+              <h2>Descrição:</h2>
+            </div>
+
+          </section>
+            <section class="tasks-section">
+              <div class="tabs">
+                <button class="tab-button">Tarefas pendentes</button>
+                <button class="tab-button">Tarefas em andamento</button>
+                <button class="tab-button">Tarefas concluídas</button>
+              </div>
+              <div class="tasks">
+                <div class="task">Tarefa 1 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
+                <div class="task">Tarefa 2 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
+                <div class="task">Tarefa 3 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
+                <button class="add-task" id="add-task">Adicionar tarefa</button>
+                <div id="modal-add-task-container"></div>
+              </div>
+            </section>
+
+            <section class="notes-section">
+              <div>
+                <h4>Anotação:</h4>
+              </div>
+              <textarea placeholder="Texto"></textarea>
+            </section>
+
           </div>
-          <div>
-            <h3>Membros</h3>
+          <div class="right">
+            <section class="members-section">
+              <div class="members-box">
+                <button class="add-member" id="open-modal-btn">Novo membro +</button>
+                <div id="modal-container"></div>
+                <div>
+                  <h3>Supervisores</h3>
+                </div>
+                <div>
+                  <h3>Membros</h3>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </section>

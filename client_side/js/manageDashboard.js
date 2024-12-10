@@ -110,10 +110,46 @@ async function loadLatestTasks(){
 
 }
 
+async function loadTeams(){
+
+    const teamImages = [
+        "./images/Dev_Software.jpeg",
+        "./images/RH.jpeg",
+        "./images/Marketing.jpeg",
+        "./images/Suporte_Tecnico.jpeg",
+        "./images/Financeiro.jpeg",
+
+    ]
+
+    const response = await fetch(`${teamURL}`);
+    const allTeams = await response.json();
+
+    const teamContainer = document.querySelector('.team_cards');
+
+    teamContainer.innerHTML = '';
+
+    allTeams.forEach((team, index) => {
+            const teamCard = document.createElement('div');
+            teamCard.classList.add('card');
+
+            const imagePath = teamImages[index]
+            // Aqui você pode personalizar o conteúdo de cada card conforme os dados da tarefa
+            teamCard.innerHTML = `
+                <img src="${imagePath}" alt="Imagem da equipe ${team.equipe}" class="team-image"/>
+                <h3>${team.equipe}</h3>
+
+            `;
+
+            teamContainer.appendChild(teamCard);  // Adiciona o card ao container
+    });
+
+}
+
 loadLatestTasks();
 loadStatusMembers();
 loadMembersWithTasks();
 loadMembersWithoutTasks();
 loadActiveTasks();
 loadTaskSummary();
+loadTeams();
 

@@ -84,3 +84,20 @@ INNER JOIN Funcionario f ON f.codFunc = t.codCriador
 INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
 ORDER BY t.statusTarefa;
 
+
+SELECT tarefa.titulo, funcionario.nomeFunc, equipe.nomeEquipe
+FROM tarefa
+INNER JOIN funcionario ON funcionario.codFunc = tarefa.codCriador
+INNER JOIN equipe ON equipe.codEquipe = tarefa.codEquipe
+WHERE tarefa.codTarefa = 1;
+
+
+SELECT
+    funcionario.nomeFunc AS Membro,
+    equipe.nomeEquipe AS Equipe
+FROM membros
+INNER JOIN funcionario ON membros.codFunc = funcionario.codFunc
+INNER JOIN equipe ON membros.codEquipe = equipe.codEquipe
+ORDER BY Membro AND Equipe;
+
+
