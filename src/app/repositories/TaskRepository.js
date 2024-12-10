@@ -4,38 +4,33 @@ class TaskRepository {
 
   // ROTAS PADRÃO
 
+  // quero saber quais sao todas as tarefas
   async findAll() {
     const rows = await db.query(`
       SELECT * FROM tarefa
       `);
   return rows;
-
   }
 
+  // quero saber uma tarefa específica
   async findById(id) {
     const [rows] = await db.query(`
-      SELECT * FROM tarefa WHERE codTarefa = ?
-
-    `, [id]);
-
+      SELECT * FROM tarefa WHERE codTarefa = ?`, 
+      [id]);
     return rows;
-
   }
 
-  async findByEmail(email) {
-
-  }
-
+  // pensar em sql, criar a instancia, o dado 
   async create({ name, email, phone, category_id }) {
 
 
   }
 
-
+// atualizar o registro especifico
   update() {
 
   }
-
+// deletar o registro especifico
   async delete(id) {
 
   }
