@@ -129,6 +129,36 @@ class MemberRepository {
       return query
   }
 
+  // ROTAS ESPECIAIS
+
+ async findMembersByTeam(teamId){
+    query = await db.query(`
+      SELECT funcionario.nomeFunc AS membro,permissao.descricao,
+      equipe.nomeEquipe FROM membros
+      INNER JOIN funcionario ON funcionario.codFunc = membros.codFunc
+      INNER JOIN equipe ON equipe.codEquipe = membros.codEquipe
+      INNER JOIN permissao ON permissao.codPermissao = funcionario.codPermissao
+      WHERE funcionario.codPermissao > 3 AND membros.codEquipe = ?
+      ORDER BY permissao.descricao DESC
+    `, [teamId])
+
+      return query
+ }
+
+ async findManagersByTeam(teamId){
+    query = await db.query(`
+      SELECT funcionario.nomeFunc AS supervisor, equipe.nomeEquipe, permissao.descricao FROM membros
+      INNER JOIN funcionario ON funcionario.codFunc = membros.codFunc
+      INNER JOIN equipe ON equipe.codEquipe = membros.codEquipe
+      INNER JOIN permissao ON funcionario.codPermissao = permissao.codPermissao
+      WHERE funcionario.codPermissao <= 3 AND membros.codEquipe = ?
+      ORDER BY permissao.descricao
+
+    `, [teamId])
+
+      return query
+ }
+
 }
 
 module.exports = new MemberRepository();

@@ -85,7 +85,7 @@ INNER JOIN Funcionario f ON f.codFunc = t.codCriador
 INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
 ORDER BY t.statusTarefa;
 
-
+-- SELECIONAR TAREFA COM CÓDIGO 1
 SELECT tarefa.titulo, funcionario.nomeFunc, equipe.nomeEquipe
 FROM tarefa
 INNER JOIN funcionario ON funcionario.codFunc = tarefa.codCriador
@@ -93,12 +93,36 @@ INNER JOIN equipe ON equipe.codEquipe = tarefa.codEquipe
 WHERE tarefa.codTarefa = 1;
 
 
+-- SELECIONAR TODOS OS FUNCIONARIOS ORDENADOS POR EQUIPE
 SELECT
     funcionario.nomeFunc AS Membro,
     equipe.nomeEquipe AS Equipe
 FROM membros
 INNER JOIN funcionario ON membros.codFunc = funcionario.codFunc
 INNER JOIN equipe ON membros.codEquipe = equipe.codEquipe
-ORDER BY Membro AND Equipe;
+ORDER BY Equipe;
 
 
+-- SELECIONAR TODOS OS MEMBROS POR EQUIPE
+
+SELECT funcionario.nomeFunc, equipe.nomeEquipe FROM membros
+INNER JOIN funcionario ON funcionario.codFunc = membros.codFunc
+INNER JOIN equipe ON equipe.codEquipe = membros.codEquipe
+WHERE membros.codEquipe = 2
+
+-- SELECIONAR TODOS OS SUPERVISORES
+
+    SELECT funcionario.nomeFunc,permissao.descricao,
+    equipe.nomeEquipe FROM membros
+    INNER JOIN funcionario ON funcionario.codFunc = membros.codFunc
+    INNER JOIN equipe ON equipe.codEquipe = membros.codEquipe
+    INNER JOIN permissao ON permissao.codPermissao = funcionario.codPermissao
+    WHERE funcionario.codPermissao <= 3 AND membros.codEquipe = 2
+
+
+-- SELECIONAR APENAS OS MEMBROS FUNCIONARIOS
+    SELECT funcionario.nomeFunc, equipe.nomeEquipe, permissao.descricao FROM membros
+    INNER JOIN funcionario ON funcionario.codFunc = membros.codFunc
+    INNER JOIN equipe ON equipe.codEquipe = membros.codEquipe
+    INNER JOIN permissao ON funcionario.codPermissao = permissao.codPermissao
+    WHERE funcionario.codPermissao > 3 AND membros.codEquipe = 2

@@ -18,9 +18,11 @@ routes.put("/tasks/:id", task.update);
 routes.delete("/tasks/:id", task.delete);
 
 // TEAM ROUTES
-routes.get("/teams", team.index);
-routes.get("/teams/team_tasks/:id", team.showTasks);
+routes.get("/teams/members/:teamId", team.showMembers);
+routes.get("/teams/managers/:teamId", team.showManagers);
+routes.get("/teams/:id/tasks", team.showTasks);
 routes.get("/teams/:id", team.show);
+routes.get("/teams", team.index);
 routes.post("/teams", team.store);
 routes.put("/teams/:id", team.update);
 routes.delete("/teams/:id", team.delete);

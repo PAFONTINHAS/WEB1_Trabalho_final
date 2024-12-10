@@ -15,12 +15,12 @@ class TaskRepository {
   // quero saber uma tarefa específica
   async findById(id) {
     const [rows] = await db.query(`
-      SELECT * FROM tarefa WHERE codTarefa = ?`, 
+      SELECT * FROM tarefa WHERE codTarefa = ?`,
       [id]);
     return rows;
   }
 
-  // pensar em sql, criar a instancia, o dado 
+  // pensar em sql, criar a instancia, o dado
   async create({ name, email, phone, category_id }) {
 
 
@@ -89,21 +89,51 @@ class TaskRepository {
 
   }
 
-  async findTasksByTeam(id){
-    const rows = await db.query(`
-      SELECT t.titulo, t.dataInicio, t.dataLimite, t.statusTarefa, f.nomeFunc AS funcionario, e.nomeEquipe AS equipe
+  // async findTasksByTeam(id){
+  //   const rows = await db.query(`
+  //     SELECT t.titulo, t.dataInicio, t.dataLimite, t.statusTarefa, f.nomeFunc AS funcionario, e.nomeEquipe AS equipe
+  //     FROM tarefa t
+  //     INNER JOIN Funcionario f ON f.codFunc = t.codCriador
+  //     INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
+  //     WHERE t.codEquipe = ?
+  //     ORDER BY t.dataCriacao;
+
+  //   `, [id]);
+
+  //   return rows;
+  // }
+
+
+  async findTasksByTeam(id, status) {
+    let query = `
+      SELECT
+        t.titulo,
+        t.dataInicio,
+        t.dataLimite,
+        t.statusTarefa,
+        f.nomeFunc AS funcionario,
+        e.nomeEquipe AS equipe
       FROM tarefa t
       INNER JOIN Funcionario f ON f.codFunc = t.codCriador
       INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
       WHERE t.codEquipe = ?
-      ORDER BY t.dataCriacao;
+    `;
 
-    `, [id]);
+    const params = [id]; // Parâmetro para filtrar pelo ID da equipe
 
+    // Adiciona o filtro de status, se fornecido
+    if (status) {
+      query += ` AND t.statusTarefa = ?`;
+      params.push(status);
+    }
+
+    query += ` ORDER BY t.dataCriacao;`;
+
+    const rows = await db.query(query, params);
     return rows;
   }
-
-
 }
+
+
 
 module.exports = new TaskRepository();

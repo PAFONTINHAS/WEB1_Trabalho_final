@@ -74,7 +74,7 @@ class Task {
     const tasks = await TaskRepository.create({
       titulo,
       equipe: equipe || null,
-      membros,
+      membros: membros || null,
       data_inicio,
       data_limite,
       status,

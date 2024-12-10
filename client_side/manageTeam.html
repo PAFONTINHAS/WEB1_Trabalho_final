@@ -33,19 +33,41 @@
         </div>
 
       </section>
-        <section class="tasks-section">
-          <div class="tabs">
-            <button class="tab-button">Tarefas pendentes</button>
-            <button class="tab-button">Tarefas em andamento</button>
-            <button class="tab-button">Tarefas concluídas</button>
-          </div>
-          <div class="tasks">
-            <div class="task">Tarefa 1 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
-            <div class="task">Tarefa 2 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
-            <div class="task">Tarefa 3 - Título - Equipe - Membros - Data início - Data limite - Status - Criador</div>
+      <section class="tasks-section">
+        <div class="tabs">
+          <button class="tab-button" data-status="pendente">Tarefas pendentes</button>
+          <button class="tab-button" data-status="em_andamento">Tarefas em andamento</button>
+          <button class="tab-button" data-status="aguardando">Tarefas Esperando Aprovação</button>
+          <button class="tab-button" data-status="concluido">Tarefas concluídas</button>
+        </div>
+        <div class="taskBox" id="pendente" style="display: block;">
+          <h1 class="title">Tarefas Pendentes</h1>
+          <ul id="pending_task_list">
+
+          </ul>
+        </div>
+        <div class="taskBox" id="em_andamento" style="display: none;">
+          <h1 class="title">Tarefas em Andamento</h1>
+          <ul id="ongoing_task_list">
+
+          </ul>
+        </div>
+        <div class="taskBox" id="aguardando" style="display: none;">
+          <h1 class="title">Tarefas Aguardando</h1>
+          <ul id="awaiting_task_list">
+
+          </ul>
+        </div>
+        <div class="taskBox" id="concluido" style="display: none;">
+          <h1 class="title">Tarefas Concluídas</h1>
+          <ul id="finished_task_list">
+
+          </ul>
+
+        </div>
+
             <div id="modal-add-task-container"></div>
             <button class="add-task" id="add-task">Adicionar tarefa</button>
-          </div>
         </section>
 
         <section class="notes-section">
@@ -63,9 +85,11 @@
           <div id="modal-container"></div>
           <div>
             <h3>Supervisores:</h3>
+            <div id="manager_list"></div>
           </div>
           <div>
             <h3>Membros:</h3>
+            <div id="member_list"></div>
           </div>
         </div>
       </section>
