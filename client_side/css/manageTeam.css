@@ -108,6 +108,7 @@ button{
   .team-section {
     display: flex;
     gap: 20px;
+    margin: 25px;
   }
 
   .box {
@@ -125,6 +126,7 @@ button{
     padding: 20px;
     border-radius: 5px;
     width: 1100px;;
+    margin: 25px;
   }
 
   .tabs {
@@ -173,6 +175,8 @@ button{
     background-color: #1b374f;
     padding: 20px;
     border-radius: 5px;
+    height: 700px;
+    margin: 25px;
   }
 
   .members-box {
@@ -200,11 +204,13 @@ button{
     border-radius: 5px;
     display: flex;
     gap: 10px;
+    margin: 25px;
+    height: 230px;
   }
 
   textarea {
     width: 100%;
-    height: 100px;
+    height: 180px;
     background-color: #335069;
     color: #ffffff;
     border: none;
