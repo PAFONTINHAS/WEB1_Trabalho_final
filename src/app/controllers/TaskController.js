@@ -86,12 +86,31 @@ class Task {
   async update(request,response) {
     //Atualizar um registro existente
     const {id} = request.params;
+    const updatedData = request.body;
+
     const tasks = await TaskRepository.findById(id);
+
     if (!tasks){
       return response.status(404).json({error:"Task não encontrada"});
     }
-    await TaskRepository.update(id);
-    response.sendStatus(204);
+
+    // Verificar as diferenças entre os dados atuais e os novos
+    const updatedFields = {};
+    for (const key in updatedData) {
+      if (updatedData[key] !== tasks[key]) {
+        updatedFields[key] = updatedData[key];
+      }
+    }
+
+    // Caso não haja campos diferentes, não há necessidade de atualizar
+    if (Object.keys(updatedFields).length === 0) {
+      return response.status(400).json({ message: "Nenhuma mudança detectada" });
+    }
+
+
+
+    await TaskRepository.update(id,updatedFields);
+    response.json(task);
   }
 
   async delete(request, response) {

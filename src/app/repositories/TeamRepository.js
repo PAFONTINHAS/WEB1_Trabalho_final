@@ -16,21 +16,37 @@ class TeamRepository {
     return rows;
   }
 
-  async findByEmail(email) {
-
+  async create({ descricao, nomeEquipe }) {
+    const rows = await db.query(
+      `INSERT INTO equipe (descricao, nomeEquipe)
+      VALUES (?,?)`, 
+      [descricao, nomeEquipe]
+    )
   }
 
-  async create({ name, email, phone, category_id }) {
+  async update(id) {
+    const fields = Object.keys(updatedFields)
+      .map(key => `${key} = ?`)
+      .join(", "); // Cria algo como: "nomeFunc = ?, emailFunc = ?"
 
+    const values = Object.values(updatedFields); // Valores a serem atualizados
+    values.push(id); // Adiciona o ID ao final para o WHERE
 
-  }
+    const query = `
+      UPDATE equipe
+      SET ${fields}
+      WHERE codFunc = ?;
+    `;
 
-  update() {
+    await db.query(query, values);
 
   }
 
   async delete(id) {
-
+    const [rows] = await db.query(`
+      DELETE FROM equipe WHERE codEquipe = ?`, 
+      [id]);
+    return rows;
   }
 }
 
