@@ -75,40 +75,35 @@ button{
 }
 
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+.header {
+  background-color: #1b374f;
+  padding: 10px;
 
-  .header {
-    background-color: #1b374f;
-    padding: 10px;
+}
 
-  }
+.nav-button {
+  background-color: #19568a;
+  border: none;
+  padding: 10px 20px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+}
 
-  .nav-button {
-    background-color: #19568a;
-    border: none;
-    padding: 10px 20px;
-    color: #ffffff;
-    cursor: pointer;
-    font-weight: 700;
-    margin-right: 10px;
+/* CONTAINER */
+
+  .container{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: end;
   }
 
-  .main-content {
-    display: grid;
-    grid-template-columns: 3fr 1fr; /* Coluna principal e lateral */
-    grid-template-rows: auto; /* Ajusta automaticamente as alturas das linhas */
-    gap: 20px;
-    padding: 20px;
-    min-height: calc(100vh - 60px); /* Garante que ocupe a altura da tela */
-  }
+
+  /* TEAM SECTION */
 
   .team-section {
     display: flex;
@@ -122,12 +117,14 @@ button{
     border-radius: 5px;
   }
 
+  /* TASK SECTION */
+
   .tasks-section {
     grid-column: span 2;
     background-color: #19568a;
     padding: 20px;
-    border-radius: 5px;  
-    width: 1100px;; 
+    border-radius: 5px;
+    width: 1100px;;
   }
 
   .tabs {
@@ -166,6 +163,8 @@ button{
     cursor: pointer;
   }
 
+  /* MEMBERS SECTION */
+
   .members-section {
     grid-column: 2; /* Fica na segunda coluna (direita) */
     grid-row: 1; /* Fica na primeira linha */
@@ -192,6 +191,7 @@ button{
     width:12%;
   }
 
+  /* NOTES SECTION */
   .notes-section {
     background-color: #19568a;
     padding: 20px;
