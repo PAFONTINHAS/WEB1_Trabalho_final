@@ -6,7 +6,7 @@ class TaskRepository {
 
   async findAll() {
     const rows = await db.query(`
-      SELECT nomeEquipe AS equipe FROM equipe
+      SELECT * FROM tarefa
       `);
   return rows;
 
@@ -92,6 +92,20 @@ class TaskRepository {
     return rows;
 
 
+  }
+
+  async findTasksByTeam(id){
+    const rows = await db.query(`
+      SELECT t.titulo, t.dataInicio, t.dataLimite, t.statusTarefa, f.nomeFunc AS funcionario, e.nomeEquipe AS equipe
+      FROM tarefa t
+      INNER JOIN Funcionario f ON f.codFunc = t.codCriador
+      INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
+      WHERE t.codEquipe = ?
+      ORDER BY t.dataCriacao;
+
+    `, [id]);
+
+    return rows;
   }
 
 

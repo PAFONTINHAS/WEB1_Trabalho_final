@@ -21,9 +21,9 @@ async function loadMembersWithTasks(){
     const response = await fetch(`${memberURL}/with_tasks`);
     const [countMember] = await response.json();
 
-    const withoutTasks = document.getElementById('withTasks');
+    const withTasks = document.getElementById('withTasks');
 
-    withoutTasks.innerHTML = `${countMember.com_tarefas}`;
+    withTasks.innerHTML = `${countMember.com_tarefas}`;
 
 }
 
@@ -131,6 +131,7 @@ async function loadTeams(){
     allTeams.forEach((team, index) => {
             const teamCard = document.createElement('div');
             teamCard.classList.add('card');
+            teamCard.setAttribute('data-id', team.id);
 
             const imagePath = teamImages[index]
             // Aqui você pode personalizar o conteúdo de cada card conforme os dados da tarefa
@@ -139,6 +140,10 @@ async function loadTeams(){
                 <h3>${team.equipe}</h3>
 
             `;
+
+            teamCard.addEventListener("click", () => {
+                window.location.href = `manageTeam.html?id=${team.id}`; // Redireciona para a página da equipe
+            });
 
             teamContainer.appendChild(teamCard);  // Adiciona o card ao container
     });

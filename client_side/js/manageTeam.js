@@ -1,3 +1,24 @@
+const urlParams = new URLSearchParams(window.location.search);
+const teamId = urlParams.get('id');
+
+async function loadTeamInformation(){
+
+  const response = await fetch(`${teamURL}/${teamId}`);
+  const team = await response.json();
+
+  const teamName = document.getElementById('team_name');
+  const teamDesc = document.getElementById('team_desc');
+
+  teamName.innerHTML = `${team.equipe}`;
+  teamDesc.innerHTML = `${team.descricao}`;
+
+
+}
+
+loadTeamInformation();
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const openModalBtn = document.getElementById("open-modal-btn");
   const modalContainer = document.getElementById("modal-container");

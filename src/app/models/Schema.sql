@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS Funcionario(
 );
 CREATE TABLE IF NOT EXISTS Equipe(
 	codEquipe INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    descricao TEXT,
     nomeEquipe VARCHAR(200)
 );
 
