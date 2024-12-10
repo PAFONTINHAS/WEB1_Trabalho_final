@@ -103,9 +103,11 @@ button{
 
   .main-content {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr 1fr; /* Coluna principal e lateral */
+    grid-template-rows: auto; /* Ajusta automaticamente as alturas das linhas */
     gap: 20px;
     padding: 20px;
+    min-height: calc(100vh - 60px); /* Garante que ocupe a altura da tela */
   }
 
   .team-section {
@@ -124,7 +126,8 @@ button{
     grid-column: span 2;
     background-color: #19568a;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 5px;  
+    width: 1100px;; 
   }
 
   .tabs {
@@ -164,6 +167,10 @@ button{
   }
 
   .members-section {
+    grid-column: 2; /* Fica na segunda coluna (direita) */
+    grid-row: 1; /* Fica na primeira linha */
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna */
     background-color: #1b374f;
     padding: 20px;
     border-radius: 5px;
@@ -182,12 +189,15 @@ button{
     border: none;
     cursor: pointer;
     margin-bottom: 10px;
+    width:12%;
   }
 
   .notes-section {
     background-color: #19568a;
     padding: 20px;
     border-radius: 5px;
+    display: flex;
+    gap: 10px;
   }
 
   textarea {
@@ -197,5 +207,7 @@ button{
     color: #ffffff;
     border: none;
     border-radius: 5px;
-    padding: 10px;
+    padding: 10px 15px 10px 15px; /* Adiciona espaço interno */
+    resize: none; /* Impede redimensionamento manual */
+    box-sizing: border-box; /* Garante que o padding não afete a largura total */
   }
