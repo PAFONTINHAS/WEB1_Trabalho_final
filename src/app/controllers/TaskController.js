@@ -1,4 +1,5 @@
 const TaskRepository = require("../repositories/TaskRepository");
+const TeamRepository = require("../repositories/TeamRepository");
 
 class Task {
   //listar todos os registros
@@ -58,27 +59,28 @@ class Task {
 
 //create
   async store(request, response) {
-    const {titulo, equipe, membros, data_inicio, data_limite, status, criador} = request.body;
+    const {titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe} = request.body;
   // é obrigatório título, data_inicio, data_limite na task, se não tiver retorne 400
-  if((!titulo) || (!data_inicio) || (!data_limite)){
+  if((!titulo) || (!dataInicio) || (!dataLimite)){
     return response.status(400).json({error:"Dados incompletos"});
   }
   //Task tem que ter equipe, se equipe existir, procure a equipe no banco.
   //Se equipe não estiver cadastrada no banco, cancela a req e retorna 400
-  if(equipe){
-    const tasksByEquipe = await TaskRepository.findByEquipe(equipe);
+  console.log(titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador,codEquipe);
+  if(codEquipe){
+    const tasksByEquipe = await TeamRepository.findById(codEquipe);
     if(!tasksByEquipe){
       return response.status(400).json({erro:"Essa equipe não existe "})
     }
   }
     const tasks = await TaskRepository.create({
       titulo,
-      equipe: equipe || null,
-      membros,
-      data_inicio,
-      data_limite,
-      status,
-      criador
+      descricao,
+      dataInicio,
+      dataLimite,
+      statusTarefa,
+      codCriador,
+      codEquipe
     })
     response.status(201).json(tasks);
   }
@@ -110,7 +112,7 @@ class Task {
 
 
     await TaskRepository.update(id,updatedFields);
-    response.json(task);
+    response.json(tasks);
   }
 
   async delete(request, response) {

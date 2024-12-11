@@ -20,17 +20,18 @@ class TaskRepository {
   }
 
   // pensar em sql, criar a instancia, o dado 
-  async create({titulo, descricao, dataCriacao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe}) {
+  async create({titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe}) {
     const rows = await db.query(
-      ` INSERT INTO tarefa (titulo, descricao, dataCriacao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe)
-        VALUES (?, ?, ?, ?, ? , ?, ?, ?)`, 
-        [titulo, descricao, dataCriacao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe]
+      ` INSERT INTO tarefa (titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe)
+        VALUES (?, ?, ?, ?, ? , ?, ?)`, 
+        [titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe]
     )
+    return rows;
   }
 
 // atualizar o registro especifico
 
-  async update(id) {
+  async update(id, updatedFields) {
     const fields = Object.keys(updatedFields)
       .map(key => `${key} = ?`)
       .join(", "); // Cria algo como: "nomeFunc = ?, emailFunc = ?"
@@ -41,14 +42,14 @@ class TaskRepository {
     const query = `
       UPDATE tarefa
       SET ${fields}
-      WHERE codFunc = ?;
+      WHERE codTarefa = ?
     `;
 
     await db.query(query, values);
   }
 // deletar o registro especifico
   async delete(id) {
-    const [rows] = await db.query(`
+    const rows = await db.query(`
       DELETE FROM tarefa WHERE codTarefa = ?`, 
       [id]);
     return rows;

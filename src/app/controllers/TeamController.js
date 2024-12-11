@@ -21,26 +21,39 @@ class Team {
   }
 
   async store(request, response) {
-    const {nome}=request.body;
-    if(!nome){
+    const {nomeEquipe,descricao}=request.body;
+    if(!nomeEquipe){
       return response.status(400).json({error:"Obrigatório colocar nome"});
     }
     const team = await TeamRepository.create({
-      nome
+      nomeEquipe, descricao
     })
     response.status(201).json(team);
   }
 
   async update(request,response) {
-    //Atualizar um registro existente
     const {id} = request.params;
-    const team = await TeamRepository.findById(id);
-    if (!team){
+    const updatedData = request.body;
+    const teams = await TeamRepository.findById(id);
+
+    if (!teams){
       return response.status(404).json({error:"Equipe não encontrada"});
     }
-    await TeamRepository.update(id);
-    response.sendStatus(204);
+    // Verificar as diferenças entre os dados atuais e os novos
+    const updatedFields = {};
+    for (const key in updatedData) {
+      if (updatedData[key] !== teams[key]) {
+        updatedFields[key] = updatedData[key];
+      }
   }
+  // Caso não haja campos diferentes, não há necessidade de atualizar
+  if (Object.keys(updatedFields).length === 0) {
+    return response.status(400).json({ message: "Nenhuma mudança detectada" });
+  }
+  // Atualizar os campos diferentes no banco
+  await TeamRepository.update(id, updatedFields);
+  response.json(teams);
+}
 
   async delete(request, response) {
     const {id} = request.params;

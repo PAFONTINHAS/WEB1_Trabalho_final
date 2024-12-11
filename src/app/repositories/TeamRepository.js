@@ -16,15 +16,20 @@ class TeamRepository {
     return rows;
   }
 
-  async create({ descricao, nomeEquipe }) {
+  async create({ nomeEquipe, descricao}) {
     const rows = await db.query(
-      `INSERT INTO equipe (descricao, nomeEquipe)
-      VALUES (?,?)`, 
-      [descricao, nomeEquipe]
-    )
+      `INSERT INTO equipe (nomeEquipe, descricao )
+      VALUES ("${nomeEquipe}", "${descricao}")` );
+      // Retorna o ID do novo contato inserido e os dados inseridos
+    const insertedId = rows.insertId;
+    return {
+      id: insertedId,
+      nomeEquipe,
+      descricao
+    };
   }
 
-  async update(id) {
+  async update(id,updatedFields) {
     const fields = Object.keys(updatedFields)
       .map(key => `${key} = ?`)
       .join(", "); // Cria algo como: "nomeFunc = ?, emailFunc = ?"
@@ -35,7 +40,7 @@ class TeamRepository {
     const query = `
       UPDATE equipe
       SET ${fields}
-      WHERE codFunc = ?;
+      WHERE codEquipe = ?;
     `;
 
     await db.query(query, values);
@@ -43,10 +48,10 @@ class TeamRepository {
   }
 
   async delete(id) {
-    const [rows] = await db.query(`
+    const rows = await db.query(`
       DELETE FROM equipe WHERE codEquipe = ?`, 
       [id]);
-    return rows;
+      return rows
   }
 }
 
