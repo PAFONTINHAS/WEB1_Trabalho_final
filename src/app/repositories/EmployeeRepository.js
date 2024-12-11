@@ -16,9 +16,11 @@ class EmployeeRepository {
 
   async findById(id) {
     [query]= await db.query(`
-      SELECT funcionario.*, permissao.descricao, permissao.nivelAcesso FROM funcionario
+      SELECT funcionario.*, permissao.descricao, permissao.nivelAcesso, equipe.nomeEquipe , equipe.codEquipe FROM funcionario
       LEFT JOIN permissao on permissao.codPermissao = funcionario.codPermissao
-      WHERE codFunc = ${id}
+      INNER JOIN membros ON membros.codFunc = funcionario.codFunc
+      INNER JOIN equipe  ON membros.codEquipe = equipe.codEquipe
+      WHERE funcionario.codFunc = ${id}
     `);
 
     return query;
@@ -55,7 +57,7 @@ class EmployeeRepository {
 
   async filterByAcessAndTeam(nivelAcesso, equipe){
     const query = `
-        SELECT f.nomeFunc AS funcionario, f.emailFunc AS email, f.cargo, GROUP_CONCAT(e.nomeEquipe) AS equipes, p.descricao, p.nivelAcesso
+        SELECT f.codFunc, f.nomeFunc AS funcionario, f.emailFunc AS email, f.cargo, GROUP_CONCAT(e.nomeEquipe) AS equipes, p.descricao, p.nivelAcesso
         FROM Funcionario f
         LEFT JOIN Membros m ON f.codFunc = m.codFunc
         LEFT JOIN Equipe e ON m.codEquipe = e.codEquipe
@@ -126,7 +128,7 @@ class EmployeeRepository {
 
   async delete(id) {
     query = await db.query(`
-      DELETE FROM funcionario WHERE id = ?
+      DELETE FROM funcionario WHERE codFunc = ?
     `, [id])
 
       return query

@@ -53,9 +53,7 @@ async function loadTeamTasks(taskStatus, taskId){
               <p>Prazo Final: ${dataLimite}</p>
               <p>Criado Por:  ${task.funcionario}</p>
           <div>
-              <button class="btnActions" data-action="edit" data-task-id="${task.codTarefa}">
-                  <img src="./icons/pencil-fill.svg" alt="edit">
-              </button>
+
               <button class="btnActions" data-action="finish" data-task-id="${task.codTarefa}">
                   <img src="./icons/check-lg.svg" alt="finish">
               </button>
@@ -70,9 +68,157 @@ async function loadTeamTasks(taskStatus, taskId){
   });
 
   // Adiciona eventos aos botões (edit, finish, delete)
-  // addTaskButtonEvents();
+  addTaskButtonEvents();
 
 }
+
+
+// Função para adicionar eventos nos botões
+function addTaskButtonEvents() {
+  const buttons = document.querySelectorAll('.btnActions');
+  buttons.forEach(button => {
+      button.addEventListener('click', (event) => {
+          const action = event.target.closest('button').dataset.action;
+          const taskId = event.target.closest('button').dataset.taskId;
+
+          // Chama a função correspondente à ação
+          if (action === 'edit') {
+              editTask(taskId);
+          } else if (action === 'finish') {
+              finishTask(taskId);
+          } else if (action === 'delete') {
+              deleteTask(taskId);
+          }
+      });
+  });
+}
+
+
+async function finishTask(taskId) {
+  const modalContainer = document.querySelector("#modal-finish-task-container");
+
+  // Carregar o modal
+  const response = await fetch("../../client_side/modais/modalFinishTask.html"); // Caminho do modal
+  const html = await response.text();
+  modalContainer.innerHTML = html;
+
+  // Exibir o modal
+  const overlay = document.getElementById("finish-modal-overlay");
+  if (overlay) {
+      overlay.style.display = "flex";
+
+      // Fechar o modal ao clicar fora dele
+      overlay.addEventListener("click", (event) => {
+          if (event.target === overlay) {
+              overlay.style.display = "none";
+          }
+      });
+  }
+
+  const taskData = await fetch(`${taskURL}/${taskId}`).then((res) => res.json());
+
+
+  const taskNameElement = document.getElementById("task-name");
+
+  if(taskNameElement){
+      taskNameElement.textContent = taskData.titulo;
+  }
+
+  const finalizeButton = document.getElementById("finalize-btn");
+  const cancelButton = document.getElementById("cancel-btn");
+
+  if(finalizeButton){
+      finalizeButton.onclick = async () => {
+          // Atualizar o status da tarefa para "concluída"
+          const updateResponse = await fetch(`${taskURL}/${taskId}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ statusTarefa: "concluida" }),
+          });
+
+          if (updateResponse.ok) {
+              alert("Tarefa finalizada com sucesso!");
+              overlay.style.display = "none";
+              // Atualize a interface com a lista de tarefas
+              loadAllTasks(); // Recarregar a lista de tarefas
+          } else {
+              alert("Erro ao finalizar a tarefa. Tente novamente.");
+          }
+      };
+  }
+
+  if (cancelButton) {
+      cancelButton.onclick = () => {
+          overlay.style.display = "none";
+      };
+  }
+
+
+}
+
+
+async function deleteTask(taskId) {
+  const modalContainer = document.querySelector("#modal-delete-task-container");
+
+  // Carregar o modal
+  const response = await fetch("../../client_side/modais/modalDeleteTask.html"); // Caminho do modal
+  const html = await response.text();
+  modalContainer.innerHTML = html;
+
+  // Exibir o modal
+  const overlay = document.getElementById("delete-modal-overlay");
+  if (overlay) {
+      overlay.style.display = "flex";
+
+      // Fechar o modal ao clicar fora dele
+      overlay.addEventListener("click", (event) => {
+          if (event.target === overlay) {
+              overlay.style.display = "none";
+          }
+      });
+  }
+
+  const taskData = await fetch(`${taskURL}/${taskId}`).then((res) => res.json());
+
+
+  const taskNameElement = document.getElementById("task-name");
+
+  if(taskNameElement){
+      taskNameElement.textContent = taskData.titulo;
+  }
+
+  const deleteButton = document.getElementById("delete-btn");
+  const cancelButton = document.getElementById("cancel-btn");
+
+  if(deleteButton){
+      deleteButton.onclick = async () => {
+          // Atualizar o status da tarefa para "concluída"
+          const deleteResponse = await fetch(`${taskURL}/${taskId}`, {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+          });
+
+          if (deleteResponse.ok) {
+              alert("Tarefa deletada com sucesso!");
+              overlay.style.display = "none";
+              // Atualize a interface com a lista de tarefas
+              loadAllTasks(); // Recarregar a lista de tarefas
+          } else {
+              alert("Erro ao deletada a tarefa. Tente novamente.");
+          }
+      };
+  }
+
+  if (cancelButton) {
+      cancelButton.onclick = () => {
+          overlay.style.display = "none";
+      };
+  }
+
+
+}
+
+
 
 async function loadManagers(){
     // Faz uma requisição para o backend para obter todas as tarefas
@@ -93,7 +239,7 @@ async function loadManagers(){
 
         // Adiciona o texto da tarefa
         listItem.innerHTML = `
-               ${manager.supervisor} - ${manager.descricao}
+            ${manager.supervisor} - ${manager.descricao}
         `;
 
         // Adiciona o item à lista
@@ -131,6 +277,10 @@ async function loadMembers(){
     });
 }
 
+
+
+// Carregar os funcionários assim que a página carregar
+
 loadTeamInformation();
 loadManagers();
 loadMembers();
@@ -165,60 +315,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-document.addEventListener("DOMContentLoaded", function () {
-  const openModalBtn = document.getElementById("open-modal-btn");
-  const modalContainer = document.getElementById("modal-container");
-
-  // Função para carregar o modal dinamicamente
-  function loadModal() {
-    fetch("./modaladdmember.html") // Caminho relativo para o modal
-      .then((response) => {
-        if (!response.ok) throw new Error("Erro ao carregar o modal.");
-        return response.text();
-      })
-      .then((html) => {
-        modalContainer.innerHTML = html; // Insere o HTML do modal no container
-
-        // Exibir o modal
-        const overlay = document.getElementById("overlay");
-        if (overlay) {
-          overlay.style.display = "flex";
-
-          // Adicionar evento para fechar o modal clicando fora dele
-          overlay.addEventListener("click", function (event) {
-            if (event.target === overlay) {
-              overlay.style.display = "none";
-            }
-          });
-
-          // Adicionar evento de clique no botão de "Adicionar Membro"
-          const adicionarBtn = document.getElementById("adicionar-btn");
-          if (adicionarBtn) {
-            adicionarBtn.addEventListener("click", function () {
-              // Aqui você pode adicionar a lógica para realmente adicionar o membro
-              console.log("Membro Adicionado");
-
-              // Fechar o modal após adicionar o membro
-              overlay.style.display = "none";
-            });
-          }
-        }
-      })
-      .catch((error) => console.error("Erro ao carregar o modal:", error));
-  }
-
-  // Adiciona evento ao botão de abrir o modal
-  openModalBtn.addEventListener("click", loadModal);
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   const addTaskBtn = document.getElementById("add-task");
   const modalContainer = document.querySelector("#modal-add-task-container");
 
   // Função para carregar o modal
   function loadModal() {
-    fetch("./modaladdtask.html") // Caminho do arquivo HTML do modal
+    fetch("../../client_side/modais/modalAddTask.html") // Caminho do arquivo HTML do modal
       .then((response) => {
         if (!response.ok) throw new Error("Erro ao carregar o modal.");
         return response.text();
@@ -228,6 +331,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Exibir o modal
         const overlay = document.getElementById("modal-overlay");
+        const nomeEquipe = document.getElementById('nomeEquipe');
+        if(nomeEquipe){
+          nomeEquipe.style.display = "none";
+        }
         if (overlay) {
           overlay.style.display = "flex"; // Torna o modal visível
 
@@ -238,10 +345,53 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           });
         }
+
+        // Adiciona evento ao botão de envio do formulário
+        const form = document.querySelector("#modal-overlay form");
+        form.addEventListener("submit", handleSubmit);
       })
       .catch((error) => console.error("Erro ao carregar o modal:", error));
+  }
+
+  // Função para tratar o envio do formulário
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    // Coleta os dados do formulário
+    const formData = new FormData(event.target);
+
+    const codEquipe = teamId;
+
+    formData.append("codEquipe", codEquipe);
+    const data = Object.fromEntries(formData.entries());
+
+    // Envia os dados para o servidor
+    fetch(`${taskURL}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao enviar a tarefa.");
+        }
+        return response.json();
+      })
+      .then((result) => {
+        console.log("Tarefa adicionada com sucesso:", result);
+        const overlay = document.getElementById("modal-overlay");
+        if (overlay) overlay.style.display = "none"; // Fecha o modal
+      })
+      .catch((error) => console.error("Erro ao enviar os dados:", error));
   }
 
   // Adiciona evento de clique ao botão "Adicionar Tarefa"
   addTaskBtn.addEventListener("click", loadModal);
 });
+
+
+
+
+

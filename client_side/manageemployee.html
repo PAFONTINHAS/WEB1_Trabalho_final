@@ -14,10 +14,16 @@
         <button onclick="location.href='index.html'">Dashboard</button>
         <button onclick="location.href='managetask.html'">Tarefas</button>
         <button onclick="location.href='manageEmployee.html'">Funcionários</button>
-        <button onclick="location.href='manageTeam.html'">Equipes</button>
     </div>
 </header>
 <body>
+    <!-- ESTILIZAR ESSE BOTÃO, POSICIONÁ-LO E TALS (SE SOUBEREM, COLOQUEM UM EFEITO DE HOVER NELE) -->
+    <button id="add-employee">Adicionar Funcionário</button>
+
+    <div id="modal-add-employee-container"></div>
+    <div id="modal-edit-employee-container"></div>
+    <div id="modal-delete-employee-container"></div>
+
     <div class="filter-container">
         <label for="nivelAcesso">Filtrar por Nível de Acesso:</label>
         <select id="nivelAcesso">
@@ -46,21 +52,13 @@
             <h1 class="title">Funcionários</h1>
             <ul id="employeeList">
 
+                <!-- O NOME DA CLASSE EM QUE CADA DADO ESTÁ É 'listEmployee' CASO QUEIRAM MEXER NELE  É UM ELEMENTO li -->
+
+                <!-- SE QUISEREM MEXER NOS BOTÕES DE EDITAR E REMOVER, O NOME DA CLASSE É 'btnActions' -->
+
             </ul>
         </div>
     </div>
-
-
-
-
-    <!-- <form id="employeeForm">
-        <h3>Adicionar Funcionário</h3>
-        <input type="text"   name="nomeFunc"     id="nomeFunc"     placeholder="Nome do Funcionário"  required>
-        <input type="text"   name="emailFunc"    id="emailFunc"    placeholder="Email do Funcionário" required>
-        <input type="text"   name="cargo"        id="cargo"        placeholder="Cargo do Funcionário" required>
-        <input type="number" name="codPermissao" id="codPermissao" placeholder="Nível de Permissão"   required>
-        <button type="submit">Adicionar funcionário</button>
-    </form> -->
 
     <script src="./js/script.js"></script>
     <script src="./js/manageEmployee.js"></script>

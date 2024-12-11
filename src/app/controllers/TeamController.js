@@ -98,6 +98,37 @@ class Team {
     }
   }
 
+  async showTask(request, response) {
+    const { id } = request.params; // ID da equipe
+    const { taskId } = request.params; // ID da tarefa (presumo que este seja obrigatório)
+    const { status } = request.query; // Status da tarefa (opcional)
+
+    try {
+        // Busca as tarefas da equipe pelo ID e, se fornecido, pelo status
+        const tasks = await TaskRepository.findTasksByTeamAndId(id, status);
+
+        // Caso não encontre tarefas, retorne uma resposta 404 ou 200 com uma mensagem
+        if (!tasks || tasks.length === 0) {
+            return response.status(404).json({ message: "Nenhuma tarefa encontrada para essa equipe" });
+        }
+
+        // Se a tarefa específica for fornecida, filtra pela tarefa específica (taskId)
+        if (taskId) {
+            const task = tasks.find(task => task.id === taskId);
+            if (!task) {
+                return response.status(404).json({ message: "Tarefa não encontrada" });
+            }
+            return response.json(task);
+        }
+
+        // Caso contrário, retorna todas as tarefas da equipe
+        response.json(tasks);
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ error: "Erro ao buscar tarefas" }); // Erro no servidor
+    }
+}
+
   async showMembers(request, response){
 
     const { teamId } = request.params;

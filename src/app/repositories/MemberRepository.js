@@ -123,7 +123,7 @@ class MemberRepository {
 
   async delete(id) {
     query = await db.query(`
-      DELETE FROM membros WHERE id = ?
+      DELETE FROM membros WHERE codFunc = ?
     `, [id])
 
       return query

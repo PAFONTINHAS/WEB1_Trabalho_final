@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal de Tarefa</title>
+    <link rel="stylesheet" href="../../client_side/modais/modalAddTask.css" />
+  </head>
+  <body>
+    <!-- Modal -->
+    <div class="modal-overlay" id="add-employee-modal-overlay">
+      <div class="modal">
+        <h2>Adicionar Funcionário</h2>
+        <form id="edit-task-form">
+          <input type="text" placeholder="Nome" name="nomeFunc" class="input-field" />
+          <input type="email" placeholder="email" name="emailFunc" class="input-field" />
+          <input type="text" placeholder="cargo" name="cargo" class="input-field" />
+          <select class="input-field" name="codPermissao">
+            <option value="" disabled selected>Nivel de Acesso</option>
+            <option value="1">Administrador</option>
+            <option value="2">Gerente</option>
+            <option value="3">Líder de Equipe</option>
+            <option value="4">Funcionário</option>
+            <option value="5">Estagiário</option>
+          </select>
+          <select class="input-field" name="codEquipe">
+            <option value="" disabled selected>Equipe</option>
+            <option value="1">Desenvolvimento de Software</option>
+            <option value="2">Recursos Humanos</option>
+            <option value="3">Marketing Digital</option>
+            <option value="4">Suporte Técnico</option>
+            <option value="5">Financeiro</option>
+          </select>
+          <button type="submit" class="submit-btn">Salvar Alterações</button>
+        </form>
+        <button type="submit" class="submit-btn" id="cancel-btn">Cancelar</button>
+
+      </div>
+    </div>
+  </body>
+</html>

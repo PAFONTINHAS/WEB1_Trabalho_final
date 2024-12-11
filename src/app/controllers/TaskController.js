@@ -73,13 +73,16 @@ class Task {
       return response.status(400).json({erro:"Essa equipe não existe "})
     }
   }
+
+  const creatorId = codCriador || 13;
+
     const tasks = await TaskRepository.create({
       titulo,
       descricao,
       dataInicio,
       dataLimite,
       statusTarefa,
-      codCriador,
+      codCriador: creatorId,
       codEquipe
     })
     response.status(201).json(tasks);

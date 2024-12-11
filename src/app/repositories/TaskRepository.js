@@ -20,11 +20,18 @@ class TaskRepository {
     return rows;
   }
 
-  // pensar em sql, criar a instancia, o dado 
+  async findByMember(id) {
+    const [rows] = await db.query(`
+      SELECT * FROM tarefa WHERE codCriador = ?`,
+      [id]);
+    return rows;
+  }
+
+  // pensar em sql, criar a instancia, o dado
   async create({titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe}) {
     const rows = await db.query(
       ` INSERT INTO tarefa (titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe)
-        VALUES (?, ?, ?, ?, ? , ?, ?)`, 
+        VALUES (?, ?, ?, ?, ? , ?, ?)`,
         [titulo, descricao, dataInicio, dataLimite, statusTarefa, codCriador, codEquipe]
     )
     return rows;
@@ -51,7 +58,14 @@ class TaskRepository {
 // deletar o registro especifico
   async delete(id) {
     const rows = await db.query(`
-      DELETE FROM tarefa WHERE codTarefa = ?`, 
+      DELETE FROM tarefa WHERE codTarefa = ?`,
+      [id]);
+    return rows;
+  }
+
+  async deleteByMember(id) {
+    const rows = await db.query(`
+      DELETE FROM tarefa WHERE codCriador = ?`,
       [id]);
     return rows;
   }
@@ -61,7 +75,7 @@ class TaskRepository {
   async countAllTasks(){
 
     const rows = await db.query(`
-      SELECT COUNT(*) AS tarefas_ativas FROM tarefa
+      SELECT COUNT(*) AS tarefas_ativas FROM tarefa WHERE statusTarefa != "concluida"
 
     `);
 
@@ -128,6 +142,7 @@ class TaskRepository {
   async findTasksByTeam(id, status) {
     let query = `
       SELECT
+        t.codTarefa,
         t.titulo,
         t.dataInicio,
         t.dataLimite,
@@ -153,6 +168,44 @@ class TaskRepository {
     const rows = await db.query(query, params);
     return rows;
   }
+
+
+  async findTasksByTeamAndId(id, status, taskId) {
+    let query = `
+      SELECT
+        t.codTarefa,
+        t.titulo,
+        t.dataInicio,
+        t.dataLimite,
+        t.statusTarefa,
+        f.nomeFunc AS funcionario,
+        e.nomeEquipe AS equipe
+      FROM tarefa t
+      INNER JOIN Funcionario f ON f.codFunc = t.codCriador
+      INNER JOIN Equipe e ON e.codEquipe = t.codEquipe
+      WHERE t.codEquipe = ?
+    `;
+
+    const params = [id]; // Parâmetro para filtrar pelo ID da equipe
+
+    // Se o taskId for fornecido, adiciona o filtro
+    if (taskId) {
+      query += ` AND t.codTarefa = ?`;
+      params.push(taskId);
+    }
+
+    // Se o status for fornecido, adiciona o filtro
+    if (status) {
+      query += ` AND t.statusTarefa = ?`;
+      params.push(status);
+    }
+
+    query += ` ORDER BY t.dataCriacao;`;
+
+    const rows = await db.query(query, params);
+    return rows;
+  }
+
 }
 
 

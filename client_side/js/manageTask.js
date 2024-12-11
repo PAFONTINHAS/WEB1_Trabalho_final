@@ -83,38 +83,227 @@ function addTaskButtonEvents() {
             // Chama a função correspondente à ação
             if (action === 'edit') {
                 editTask(taskId);
+                console.log("Editar tarefa código :", taskId)
             } else if (action === 'finish') {
                 finishTask(taskId);
+                console.log("finalizar tarefa código :", taskId)
+
             } else if (action === 'delete') {
                 deleteTask(taskId);
+                console.log("Deletar tarefa código :", taskId)
+
             }
         });
     });
 }
 
 // Funções de exemplo para as ações (substitua pelo comportamento real)
-function editTask(taskId) {
-    console.log(`Editar tarefa com ID: ${taskId}`);
-    // Implemente a lógica de edição
-}
+// Função para editar uma tarefa (abrir o modal e preencher os dados)
+async function editTask(taskId) {
+    const modalContainer = document.querySelector("#modal-edit-task-container");
 
-function finishTask(taskId) {
-    const finishModal = document.getElementById('finish_modal')
+    // Carregar o modal
+    const response = await fetch("../../client_side/modais/modalEditTask.html"); // Caminho do modal
+    const html = await response.text();
+    modalContainer.innerHTML = html;
 
-    if(finishModal){
-        // finishModal.style.display = "block";
+    // Exibir o modal
+    const overlay = document.getElementById("modal-overlay");
+    if (overlay) {
+        overlay.style.display = "flex";
+
+        // Fechar o modal ao clicar fora dele
+        overlay.addEventListener("click", (event) => {
+            if (event.target === overlay) {
+                overlay.style.display = "none";
+            }
+        });
     }
 
-    finishModal.innerHTML = '';
-    console.log(`Concluir tarefa com ID: ${taskId}`);
+    // Carregar os dados da tarefa
+    const taskResponse = await fetch(`${taskURL}/${taskId}`); // Endpoint para obter a tarefa
+    const task = await taskResponse.json();
 
+    // Preencher os campos do formulário
+    document.querySelector('input[name="titulo"]').value = task.titulo;
+    document.querySelector('textarea[name="descricao"]').value = task.descricao;
+    document.querySelector('input[name="dataInicio"]').value = task.dataInicio.split('T')[0];
+    document.querySelector('input[name="dataLimite"]').value = task.dataLimite.split('T')[0];
+    document.querySelector('select[name="statusTarefa"]').value = task.statusTarefa;
+    document.querySelector('select[name="codEquipe"]').value = task.codEquipe;
 
-    // Implemente a lógica para concluir a tarefa
+    // Adicionar evento de envio no formulário
+    const form = document.querySelector("#modal-overlay form");
+    form.addEventListener("submit", (event) => {
+        handleEditSubmit(event, taskId);
+    });
+
+    const cancelButton = document.getElementById('cancel-btn');
+    if(cancelButton){
+        cancelButton.onclick = () => {
+            overlay.style.display = "none";
+        };
+    }
 }
 
-function deleteTask(taskId) {
-    console.log(`Excluir tarefa com ID: ${taskId}`);
-    // Implemente a lógica para excluir a tarefa
+// Função para tratar o envio do formulário de edição
+async function handleEditSubmit(event, taskId) {
+    event.preventDefault();
+
+    // Coletar os dados do formulário
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    // Enviar os dados atualizados para o servidor
+    try {
+        const response = await fetch(`${taskURL}/${taskId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) throw new Error("Erro ao atualizar a tarefa.");
+
+        console.log("Tarefa atualizada com sucesso!");
+
+        // Atualizar a lista de tarefas
+        const overlay = document.getElementById("modal-overlay");
+        if (overlay) overlay.style.display = "none"; // Fecha o modal
+
+        // Atualizar a lista de tarefas após edição (chame a função principal)
+        // loadAllTasks(data.statusTarefa, "task-list-id"); // Substitua pelo ID real da lista
+    } catch (error) {
+        console.error("Erro ao atualizar a tarefa:", error);
+    }
+}
+
+
+
+
+async function finishTask(taskId) {
+    const modalContainer = document.querySelector("#modal-finish-task-container");
+
+    // Carregar o modal
+    const response = await fetch("../../client_side/modais/modalFinishTask.html"); // Caminho do modal
+    const html = await response.text();
+    modalContainer.innerHTML = html;
+
+    // Exibir o modal
+    const overlay = document.getElementById("finish-modal-overlay");
+    if (overlay) {
+        overlay.style.display = "flex";
+
+        // Fechar o modal ao clicar fora dele
+        overlay.addEventListener("click", (event) => {
+            if (event.target === overlay) {
+                overlay.style.display = "none";
+            }
+        });
+    }
+
+    const taskData = await fetch(`${taskURL}/${taskId}`).then((res) => res.json());
+
+
+    const taskNameElement = document.getElementById("task-name");
+
+    if(taskNameElement){
+        taskNameElement.textContent = taskData.titulo;
+    }
+
+    const finalizeButton = document.getElementById("finalize-btn");
+    const cancelButton = document.getElementById("cancel-btn");
+
+    if(finalizeButton){
+        finalizeButton.onclick = async () => {
+            // Atualizar o status da tarefa para "concluída"
+            const updateResponse = await fetch(`${taskURL}/${taskId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ statusTarefa: "concluida" }),
+            });
+
+            if (updateResponse.ok) {
+                alert("Tarefa finalizada com sucesso!");
+                overlay.style.display = "none";
+                // Atualize a interface com a lista de tarefas
+                loadAllTasks(); // Recarregar a lista de tarefas
+            } else {
+                alert("Erro ao finalizar a tarefa. Tente novamente.");
+            }
+        };
+    }
+
+    if (cancelButton) {
+        cancelButton.onclick = () => {
+            overlay.style.display = "none";
+        };
+    }
+
+
+}
+
+
+async function deleteTask(taskId) {
+    const modalContainer = document.querySelector("#modal-delete-task-container");
+
+    // Carregar o modal
+    const response = await fetch("../../client_side/modais/modalDeleteTask.html"); // Caminho do modal
+    const html = await response.text();
+    modalContainer.innerHTML = html;
+
+    // Exibir o modal
+    const overlay = document.getElementById("delete-modal-overlay");
+    if (overlay) {
+        overlay.style.display = "flex";
+
+        // Fechar o modal ao clicar fora dele
+        overlay.addEventListener("click", (event) => {
+            if (event.target === overlay) {
+                overlay.style.display = "none";
+            }
+        });
+    }
+
+    const taskData = await fetch(`${taskURL}/${taskId}`).then((res) => res.json());
+
+
+    const taskNameElement = document.getElementById("task-name");
+
+    if(taskNameElement){
+        taskNameElement.textContent = taskData.titulo;
+    }
+
+    const deleteButton = document.getElementById("delete-btn");
+    const cancelButton = document.getElementById("cancel-btn");
+
+    if(deleteButton){
+        deleteButton.onclick = async () => {
+            // Atualizar o status da tarefa para "concluída"
+            const deleteResponse = await fetch(`${taskURL}/${taskId}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (deleteResponse.ok) {
+                alert("Tarefa deletada com sucesso!");
+                overlay.style.display = "none";
+                // Atualize a interface com a lista de tarefas
+                loadAllTasks(); // Recarregar a lista de tarefas
+            } else {
+                alert("Erro ao deletada a tarefa. Tente novamente.");
+            }
+        };
+    }
+
+    if (cancelButton) {
+        cancelButton.onclick = () => {
+            overlay.style.display = "none";
+        };
+    }
+
+
 }
 
 loadAllTasks('pendente', 'pending_task_list');
@@ -124,15 +313,13 @@ loadAllTasks('concluida', 'finished_task_list');
 
 
 
-
-
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const addTaskBtn = document.getElementById("add-task");
     const modalContainer = document.querySelector("#modal-add-task-container");
 
     // Função para carregar o modal
     function loadModal() {
-      fetch("./modaladdtask.html") // Caminho do arquivo HTML do modal
+      fetch("../../client_side/modais/modalAddTask.html") // Caminho do arquivo HTML do modal
         .then((response) => {
           if (!response.ok) throw new Error("Erro ao carregar o modal.");
           return response.text();
@@ -152,10 +339,48 @@ loadAllTasks('concluida', 'finished_task_list');
               }
             });
           }
+
+          // Adiciona evento ao botão de envio do formulário
+          const form = document.querySelector("#modal-overlay form");
+          form.addEventListener("submit", handleSubmit);
         })
         .catch((error) => console.error("Erro ao carregar o modal:", error));
+    }
+
+    // Função para tratar o envio do formulário
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      // Coleta os dados do formulário
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // Envia os dados para o servidor
+      fetch(`${taskURL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Erro ao enviar a tarefa.");
+          }
+          return response.json();
+        })
+        .then((result) => {
+          console.log("Tarefa adicionada com sucesso:", result);
+          const overlay = document.getElementById("modal-overlay");
+          if (overlay) overlay.style.display = "none"; // Fecha o modal
+        })
+        .catch((error) => console.error("Erro ao enviar os dados:", error));
     }
 
     // Adiciona evento de clique ao botão "Adicionar Tarefa"
     addTaskBtn.addEventListener("click", loadModal);
   });
+
+
+
+

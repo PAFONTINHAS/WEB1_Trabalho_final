@@ -123,7 +123,7 @@ button{
     list-style: none;
     padding: 0;
     margin: 0;
-    max-width: 600px;
+    /* max-width: 600px; */
     margin: 0 auto;
 }
 
@@ -197,3 +197,17 @@ button{
     background-color: grey;
 }
 
+
+.btnActions{
+
+    /* background-color: #1507074a; */
+    background-color: white;
+    box-shadow: 1px 1px 1px  black;
+    padding: 3px;
+    border-radius: 3px;
+    border: 10px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    width: auto;
+    outline: none;
+}

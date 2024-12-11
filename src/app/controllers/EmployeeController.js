@@ -1,6 +1,8 @@
 const { query } = require("express");
 const EmployeeRepository = require("../repositories/EmployeeRepository");
 const e = require("express");
+const MemberRepository = require("../repositories/MemberRepository");
+const TaskRepository = require("../repositories/TaskRepository");
 var employee;
 class Employee {
   async index(request, response) {
@@ -117,7 +119,19 @@ class Employee {
 
   async delete(request, response) {
     const {id} = request.params;
-    employee = await EmployeeRepository.delete();
+
+    const getMember = await MemberRepository.findByMember(id);
+    const getTasks = await TaskRepository.findByMember(id);
+
+    if(getMember){
+      await MemberRepository.delete(id);
+    }
+    if(getTasks){
+      await TaskRepository.deleteByMember(id);
+    }
+
+    employee = await EmployeeRepository.delete(id);
+
     response.json(employee);
 
   }

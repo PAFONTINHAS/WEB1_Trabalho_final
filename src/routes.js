@@ -20,6 +20,7 @@ routes.delete("/tasks/:id", task.delete);
 // TEAM ROUTES
 routes.get("/teams/members/:teamId", team.showMembers);
 routes.get("/teams/managers/:teamId", team.showManagers);
+routes.get("/teams/:id/tasks/:taskId", team.showTask);
 routes.get("/teams/:id/tasks", team.showTasks);
 routes.get("/teams/:id", team.show);
 routes.get("/teams", team.index);

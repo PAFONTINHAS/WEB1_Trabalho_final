@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal de Tarefa</title>
+    <link rel="stylesheet" href="../../client_side/modais/modalAddTask.css" />
+  </head>
+  <body>
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="modal">
+        <h2>Editar Tarefa</h2>
+        <form id="edit-task-form">
+          <input type="text" placeholder="Título" name="titulo" class="input-field" />
+          <textarea placeholder="Objetivo" name="descricao" class="input-field"></textarea>
+          Data de início:
+          <input type="date" class="input-field" name="dataInicio" placeholder="Inicio" />
+          Data Final:
+          <input type="date" class="input-field" name="dataLimite" placeholder="Prazo" />
+          <select name="statusTarefa" class="input-field">
+            <option value="" disabled selected>Status</option>
+            <option value="pendente">Pendente</option>
+            <option value="em-andamento">Em andamento</option>
+            <option value="concluida">Concluída</option>
+          </select>
+          <select class="input-field" name="codEquipe">
+            <option value="" disabled selected>Equipe</option>
+            <option value="1">Desenvolvimento de Software</option>
+            <option value="2">Recursos Humanos</option>
+            <option value="3">Marketing Digital</option>
+            <option value="4">Suporte Técnico</option>
+            <option value="5">Financeiro</option>
+          </select>
+          <button type="submit" class="submit-btn">Salvar Alterações</button>
+        </form>
+        <button type="submit" class="submit-btn" id="cancel-btn">Cancelar</button>
+
+      </div>
+    </div>
+  </body>
+</html>

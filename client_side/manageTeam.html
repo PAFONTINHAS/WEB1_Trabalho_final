@@ -16,7 +16,6 @@
       <button onclick="location.href='index.html'">Dashboard</button>
       <button onclick="location.href='manageTask.html'">Tarefas</button>
       <button onclick="location.href='manageEmployee.html'">Funcionários</button>
-      <button onclick="location.href='manageTeam.html'">Equipes</button>
 
     </div>
   </header>
@@ -43,31 +42,41 @@
         <div class="taskBox" id="pendente" style="display: block;">
           <h1 class="title">Tarefas Pendentes</h1>
           <ul id="pending_task_list">
-
+                <!-- SE QUISEREM MEXER NA LISTA ONDE ESTÃO OS DADOS, O NOME DA CLASSE É 'task' -->
           </ul>
         </div>
         <div class="taskBox" id="em_andamento" style="display: none;">
           <h1 class="title">Tarefas em Andamento</h1>
           <ul id="ongoing_task_list">
+                <!-- SE QUISEREM MEXER NA LISTA ONDE ESTÃO OS DADOS, O NOME DA CLASSE É 'task' -->
 
           </ul>
         </div>
         <div class="taskBox" id="aguardando" style="display: none;">
           <h1 class="title">Tarefas Aguardando</h1>
           <ul id="awaiting_task_list">
+                <!-- SE QUISEREM MEXER NA LISTA ONDE ESTÃO OS DADOS, O NOME DA CLASSE É 'task' -->
 
           </ul>
         </div>
         <div class="taskBox" id="concluido" style="display: none;">
           <h1 class="title">Tarefas Concluídas</h1>
           <ul id="finished_task_list">
+                <!-- SE QUISEREM MEXER NA LISTA ONDE ESTÃO OS DADOS, O NOME DA CLASSE É 'task' -->
 
           </ul>
 
         </div>
 
             <div id="modal-add-task-container"></div>
-            <button class="add-task" id="add-task">Adicionar tarefa</button>
+            <div id="modal-edit-task-container"></div>
+            <div id="modal-finish-task-container"></div>
+            <div id="modal-delete-task-container"></div>
+
+
+            <div class="add_task">
+              <button class="add-task" id="add-task">Adicionar tarefa</button>
+            </div>
         </section>
 
         <section class="notes-section">
@@ -81,15 +90,21 @@
     <div class="right">
       <section class="members-section">
         <div class="members-box">
-          <button class="add-member" id="open-modal-btn">Novo membro +</button>
+          <!-- <button class="add-member" id="open-modal-btn">Novo membro +</button> -->
           <div id="modal-container"></div>
           <div>
             <h3>Supervisores:</h3>
-            <div id="manager_list"></div>
+            <div id="manager_list">
+                <!-- SE QUISEREM ALTERAR O MANAGER, ELE É UM ELEMENTO <p> E O NOME DA CLASSE É 'manager' -->
+            </div>
           </div>
           <div>
             <h3>Membros:</h3>
-            <div id="member_list"></div>
+            <div id="member_list">
+
+              <!-- SE QUISEREM ALTERAR O MEMBER, ELE É UM ELEMENTO <p> E O NOME DA CLASSE É 'member' -->
+
+            </div>
           </div>
         </div>
       </section>

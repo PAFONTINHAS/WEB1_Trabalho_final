@@ -124,9 +124,6 @@ button{
     width: 100%;
 }
 
-.listTask:hover{
-    background-color: grey;
-}
 
 .search{
     margin: 0px;
@@ -167,15 +164,21 @@ button{
 }
 
 .btnActions{
-    margin: 0px 0px 0px 5px;
-    padding: 0px;
-    border: none;
-    border-radius: 0%;
-    background-color: #ffffff;
+
+    /* background-color: #1507074a; */
+    background-color: white;
+    box-shadow: 1px 1px 1px  black;
+    padding: 3px;
+    border-radius: 3px;
+    border: 10px;
     font-weight: 400;
     font-size: 0.9rem;
     width: auto;
     outline: none;
+}
+
+.btnActions:hover{
+    background-color: grey;
 }
 
 /* MODAIS */
