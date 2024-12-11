@@ -168,15 +168,35 @@ button{
 /* MEMBERS SECTION */
 
 .members-section {
-  grid-column: 2; /* Fica na segunda coluna (direita) */
-  grid-row: 1; /* Fica na primeira linha */
   display: flex;
-  flex-direction: column; /* Organiza os itens em coluna */
+  flex-direction: column;
+  gap: 15px;
   background-color: #1b374f;
   padding: 20px;
   border-radius: 5px;
-  height: 700px;
   margin: 25px;
+  height: 575px;
+  weight: 200px;
+}
+
+.member-card {
+  background-color: #335069;
+  padding: 15px;
+  border-radius: 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.member-card h3 {
+  margin-bottom: 10px;
+}
+
+.member-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .members-box {
