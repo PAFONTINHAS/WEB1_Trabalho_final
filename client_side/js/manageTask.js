@@ -122,3 +122,40 @@ loadAllTasks('em-andamento', 'ongoing_task_list');
 loadAllTasks('esperando-aprovacao', 'awaiting_task_list');
 loadAllTasks('concluida', 'finished_task_list');
 
+
+
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const addTaskBtn = document.getElementById("add-task");
+    const modalContainer = document.querySelector("#modal-add-task-container");
+
+    // Função para carregar o modal
+    function loadModal() {
+      fetch("./modaladdtask.html") // Caminho do arquivo HTML do modal
+        .then((response) => {
+          if (!response.ok) throw new Error("Erro ao carregar o modal.");
+          return response.text();
+        })
+        .then((html) => {
+          modalContainer.innerHTML = html; // Insere o HTML do modal no container
+
+          // Exibir o modal
+          const overlay = document.getElementById("modal-overlay");
+          if (overlay) {
+            overlay.style.display = "flex"; // Torna o modal visível
+
+            // Adiciona evento para fechar o modal quando clicar fora dele
+            overlay.addEventListener("click", function (event) {
+              if (event.target === overlay) {
+                overlay.style.display = "none";
+              }
+            });
+          }
+        })
+        .catch((error) => console.error("Erro ao carregar o modal:", error));
+    }
+
+    // Adiciona evento de clique ao botão "Adicionar Tarefa"
+    addTaskBtn.addEventListener("click", loadModal);
+  });

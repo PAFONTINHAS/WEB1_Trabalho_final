@@ -73,7 +73,14 @@ button{
 }
 
 
+/* TASK FILTER */
 
+.add_task{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+}
 /*MANAGE TASK*/
 .filterButton{
    margin: 5px;

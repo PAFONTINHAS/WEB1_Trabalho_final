@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +26,14 @@
         <button class="filterButton" data-status="em_andamento">Em Andamento</button>
         <button class="filterButton" data-status="aguardando">Esperando Aprovação</button>
         <button class="filterButton" data-status="concluido">Concluídas</button>
+
     </div>
+
+    <div class="add_task">
+        <button class="add-task" id="add-task">Adicionar tarefa</button>
+    </div>
+
+    <div id="modal-add-task-container"></div>
 
     <div class="containerTask">
         <div class="taskBox" id="pendente" style="display: block;">
